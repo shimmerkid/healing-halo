@@ -1,0 +1,198 @@
+
+p {
+    width:35%;
+    margin-top: 5px;
+    color:#777;
+    font-family:"Roboto";
+    font-size:14px;
+
+}
+
+.controls{
+    display: block;
+    float: left;
+    width: 330px;
+    height: 1000px;
+}
+
+.slider_control{
+    display: flex;
+    width: 90%;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.canvasSection {
+    display: flex;
+    position: absolute;
+    margin:0px;
+    padding: 0px;
+
+    margin-left: 25%;
+    width: 50%;
+    aspect-ratio: 1/1;
+}
+
+
+
+.slider {
+    -webkit-appearance: none;
+    float: right;
+    width: 65%;
+    height: 25px;
+    margin-left: 15px;
+    background: #111;
+    box-shadow:  0px 0px 15px #222,
+                inset 5px 5px 5px #000,
+                inset -5px -5px 15px #333;
+    outline: none;
+    border-radius: 15px;
+    cursor: pointer;
+    opacity: 1;
+    transition: .3s;
+}
+.slider:hover {
+    opacity: 1;
+}         
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(to right, #111, #222);
+    box-shadow: 2px 2px 3px #000,
+                -2px -2px 3px #555;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(to right, #111, #222);
+    box-shadow: 2px 2px 3px #000,
+                -2px -2px 3px #555;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+
+
+.seg_slider_text {
+    position:absolute;
+    width:600px;
+    margin-left:120px;
+    margin-top: -10px;
+}
+
+.seg_2slider {
+    -webkit-appearance: none;
+    position:relative;
+    width: 65%;
+    height: 25px;
+    margin-left: 15px;
+    background: #111;
+    box-shadow:  0px 0px 15px #123,
+                inset 5px 5px 5px #000,
+                inset -5px -5px 15px #222;
+    outline: none;
+    border-radius: 15px;
+    cursor: pointer;
+    opacity:1;
+    transition: opacity .3s;
+}
+.seg_2slider:hover {
+    opacity: 1;
+}
+            
+.seg_2slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 50%;
+    height: 20px;
+    background: linear-gradient(to right, #111, #222);
+    box-shadow: 2px 2px 3px #000,
+                -2px -2px 3px #555;
+                border-radius: 15px;
+    cursor: pointer;
+}
+
+.seg_2slider::-moz-range-thumb {
+    width: 50%;
+    height: 20px;
+    background: linear-gradient(to right, #111, #222);
+    box-shadow: 2px 2px 3px #000,
+                -2px -2px 3px #555;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+.seg_3slider {
+    -webkit-appearance: none;
+    position:relative;
+    width: 65%;
+    height: 25px;
+    margin-left: 15px;
+    background: #111;
+    box-shadow:  0px 0px 15px #123,
+                inset 5px 5px 5px #000,
+                inset -5px -5px 15px #222;
+    outline: none;
+    border-radius: 15px;
+    cursor: pointer;
+    opacity:1;
+    transition: opacity .3s;
+}
+.seg_3slider:hover {
+    opacity: 1;
+}
+            
+.seg_3slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 33%;
+    height: 20px;
+    background: linear-gradient(to right, #111, #222);
+    box-shadow: 2px 2px 3px #000,
+                -2px -2px 3px #555;
+                border-radius: 15px;
+    cursor: pointer;
+}
+
+.seg_3slider::-moz-range-thumb {
+    width: 33%;
+    height: 20px;
+    background: linear-gradient(to right, #111, #222);
+    box-shadow: 2px 2px 3px #000,
+                -2px -2px 3px #555;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+.color_wheel {
+    position:absolute;
+    width:185px;
+    height:185px;
+    background-image: url("resources/colorWheelVibrant.jpeg");
+    background-size:185px;
+    box-shadow:  0px 0px 55px #555,
+                inset 5px 5px 35px #000,
+                inset -5px -5px 35px #FFF;
+    
+    filter: blur(1px);
+    border-radius: 15px;
+    margin-left:115px;
+    margin-top:25px;
+    opacity:1;
+    transition: opacity .3s;
+}
+.color_wheel:hover {
+    opacity: 1;
+}
