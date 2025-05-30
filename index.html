@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALING ORACLE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f0f0f; }
+        .halo-container { height: 300px; }
+        textarea { resize: vertical; min-height: 120px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    
+    <!-- HALO COMPONENT -->
+    <div class="halo-container w-full mb-8">
+        <iframe id="haloFrame" src="halo/index.html" class="w-full h-full border-0 rounded-lg"></iframe>
+    </div>
+
+    <div class="container mx-auto px-4 max-w-4xl">
+        
+        <!-- JOURNAL ENTRY -->
+        <div class="mb-8">
+            <h2 class="text-xl mb-4">JOURNAL ENTRY</h2>
+            <textarea 
+                id="journalInput" 
+                class="w-full p-4 bg-gray-800 border border-gray-700 rounded text-white"
+                placeholder="ENTER YOUR LOG ENTRY"
+            ></textarea>
+            <button 
+                id="submitEntry" 
+                class="mt-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded"
+            >
+                SUBMIT
+            </button>
+        </div>
+
+        <!-- JOURNAL ENTRIES LIST -->
+        <div class="mb-8">
+            <h2 class="text-xl mb-4">RECENT ENTRIES</h2>
+            <div id="entriesList" class="space-y-2"></div>
+        </div>
+
+        <!-- ADMIN INTERFACE (HIDDEN BY DEFAULT) -->
+        <div id="adminPanel" class="mb-8 p-4 bg-red-900 rounded hidden">
+            <h2 class="text-xl mb-4">ADMIN - ADD DIRECTIVE</h2>
+            <div class="flex gap-2 mb-2">
+                <input 
+                    id="directiveText" 
+                    type="text" 
+                    class="flex-1 p-2 bg-gray-800 border border-gray-700 rounded text-white"
+                    placeholder="DIRECTIVE TEXT"
+                >
+                <select id="directiveCategory" class="p-2 bg-gray-800 border border-gray-700 rounded text-white">
+                    <option value="MINDFULNESS">MINDFULNESS</option>
+                    <option value="PLANNING">PLANNING</option>
+                    <option value="PHYSICAL">PHYSICAL</option>
+                    <option value="SOCIAL">SOCIAL</option>
+                    <option value="GROWTH">GROWTH</option>
+                    <option value="GENERAL">GENERAL</option>
+                </select>
+                <button id="addDirective" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded">ADD</button>
+            </div>
+            <button id="toggleAdmin" class="text-sm text-red-400 hover:text-red-300">HIDE ADMIN</button>
+        </div>
+
+        <!-- DIRECTIVES -->
+        <div class="mb-8">
+            <h2 class="text-xl mb-4">DIRECTIVES</h2>
+            <div id="directivesList" class="space-y-2"></div>
+        </div>
+
+        <!-- SCORE DISPLAY -->
+        <div class="mb-8">
+            <h2 class="text-xl mb-4">CURRENT SCORE</h2>
+            <div id="scoreDisplay" class="text-2xl font-bold text-green-400">0</div>
+        </div>
+
+        <!-- ADMIN TOGGLE -->
+        <div class="fixed bottom-4 right-4">
+            <button id="showAdmin" class="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-xs">ADMIN</button>
+        </div>
+
+    </div>
+
+    <script src="js/journal.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
