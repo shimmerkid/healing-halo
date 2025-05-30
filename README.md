@@ -11,19 +11,20 @@ LOCAL FIRST JOURNALING TOOL WITH GENERATIVE VISUAL HALO
 5. START JOURNALING AND TESTING
 
 ## ARCHITECTURE
-healing-oracle-lean/
-├── index.html              # MAIN APP WITH HALO IFRAME + JOURNAL
-├── halo/
-│   ├── index.html          # YOUR EXISTING HALO STANDALONE
-│   ├── halo2.js            # YOUR EXISTING P5JS CODE (UPDATED WITH VERTEX LISTENERS)
-│   ├── p5.min.js           # P5JS LIBRARY
-│   └── style.css           # YOUR EXISTING STYLES
-├── js/
-│   ├── app.js              # MAIN APP LOGIC
-│   ├── journal.js          # JOURNAL ENTRY MANAGEMENT
-│   ├── directives.js       # DIRECTIVE MANAGEMENT
-│   └── scoring.js          # VERTEX CALCULATION ENGINE
-└── README.md               # THIS FILE
+
+    healing-oracle-lean/
+    ├── index.html              # MAIN APP WITH HALO IFRAME + JOURNAL
+    ├── halo/
+    │   ├── index.html          # YOUR EXISTING HALO STANDALONE
+    │   ├── halo2.js            # YOUR EXISTING P5JS CODE (UPDATED WITH VERTEX LISTENERS)
+    │   ├── p5.min.js           # P5JS LIBRARY
+    │   └── style.css           # YOUR EXISTING STYLES
+    ├── js/
+    │   ├── app.js              # MAIN APP LOGIC
+    │   ├── journal.js          # JOURNAL ENTRY MANAGEMENT
+    │   ├── directives.js       # DIRECTIVE MANAGEMENT
+    │   └── scoring.js          # VERTEX CALCULATION ENGINE
+    └── README.md               # THIS FILE
 
 ## PRIMARY USE CASE - STEPHEN'S JOURNALING
 
