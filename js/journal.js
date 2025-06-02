@@ -3,6 +3,7 @@ class JournalManager {
 
     static init() {
         this.journalInput = document.getElementById('journalInput');
+        this.journalInputTitle = document.getElementById('journalInputTitle');
         this.submitButton = document.getElementById('submitEntry');
         this.entriesList = document.getElementById('entriesList');
 
@@ -23,11 +24,13 @@ class JournalManager {
     }
 
     static submitEntry() {
+        const title = this.journalInputTitle.value.trim();
         const text = this.journalInput.value.trim();
-        if (!text) return;
+        if (!text || !title) return;
 
         const entry = {
             id: Date.now(),
+            title: title,
             text: text,
             timestamp: new Date().toISOString(),
             wordCount: text.split(/\s+/).length
@@ -35,6 +38,7 @@ class JournalManager {
 
         this.saveEntry(entry);
         this.journalInput.value = '';
+        this.journalInputTitle.value = '';
         this.loadEntries();
         
         // TRIGGER SCORE UPDATE
@@ -64,7 +68,7 @@ class JournalManager {
 
         entries.slice(0, 10).forEach(entry => {
             const entryEl = document.createElement('div');
-            entryEl.className = 'p-3 bg-gray-800 rounded border-l-4 border-blue-500';
+            entryEl.className = 'p-4 pb-8 bg-gray-800 rounded border-l-4 border-blue-500';
             
             const date = new Date(entry.timestamp).toLocaleDateString();
             const time = new Date(entry.timestamp).toLocaleTimeString('en-US', {
@@ -74,7 +78,10 @@ class JournalManager {
             
             entryEl.innerHTML = `
                 <div class="text-sm text-gray-400 mb-1">${date} ${time} • ${entry.wordCount} WORDS</div>
+                <div class="text-white">${entry.title}</div>
                 <div class="text-white">${entry.text}</div>
+                <button class="bg-red-800 pl-2 pr-2 m-0 text-white float-right">DELETE</button>
+                <button class="bg-green-800 pl-2 pr-2 m-0 mr-2 text-white float-right">SHOW TEXT</button>
             `;
             
             this.entriesList.appendChild(entryEl);
