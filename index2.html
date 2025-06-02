@@ -1,0 +1,47 @@
+<div id="adminPanel" class="mb-8 p-4 bg-red-900 rounded hidden">
+    <h2 class="text-xl mb-4">ADMIN - ADD DIRECTIVE</h2>
+    <div class="grid grid-cols-1 gap-2 mb-4">
+        <input 
+            id="directiveText" 
+            type="text" 
+            class="p-2 bg-gray-800 border border-gray-700 rounded text-white"
+            placeholder="DIRECTIVE TEXT"
+        >
+        <select id="directiveCategory" class="p-2 bg-gray-800 border border-gray-700 rounded text-white">
+            <option value="MINDFULNESS">MINDFULNESS</option>
+            <option value="PLANNING">PLANNING</option>
+            <option value="PHYSICAL">PHYSICAL</option>
+            <option value="SOCIAL">SOCIAL</option>
+            <option value="GROWTH">GROWTH</option>
+            <option value="SOMATIC">SOMATIC</option>
+            <option value="GENERAL">GENERAL</option>
+        </select>
+        <div class="flex gap-2">
+            <input 
+                id="startDate" 
+                type="date" 
+                class="flex-1 p-2 bg-gray-800 border border-gray-700 rounded text-white"
+            >
+            <input 
+                id="endDate" 
+                type="date" 
+                class="flex-1 p-2 bg-gray-800 border border-gray-700 rounded text-white"
+                placeholder="END DATE (OPTIONAL)"
+            >
+        </div>
+        <div class="flex items-center gap-4">
+            <label class="flex items-center text-white">
+                <input id="recurringToggle" type="checkbox" class="mr-2">
+                RECURRING
+            </label>
+            <select id="recurrencePattern" class="p-2 bg-gray-800 border border-gray-700 rounded text-white" disabled>
+                <option value="daily">DAILY</option>
+                <option value="weekly">WEEKLY</option>
+                <option value="weekdays">WEEKDAYS</option>
+                <option value="weekends">WEEKENDS</option>
+            </select>
+        </div>
+        <button id="addDirective" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded">ADD DIRECTIVE</button>
+    </div>
+    <button id="toggleAdmin" class="text-sm text-red-400 hover:text-red-300">HIDE ADMIN</button>
+</div>
