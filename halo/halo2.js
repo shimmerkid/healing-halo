@@ -36,8 +36,10 @@ var pilRotationSlider;
 var colorSegments;
 var logoToggle;
 
-function preload() {
+var font;
 
+function preload() {
+  font = loadFont('halo/resources/Moderniz.otf');
 }
 
 
@@ -51,9 +53,8 @@ function setup() {
 
     /*P5 JS canvas for PIL + HALO render*/
     
-    var width = document.getElementById("canvasSection").offsetWidth;
-    var height = document.getElementById("canvasSection").offsetHeight;
-    var p5Canvas = createCanvas(width, height, WEBGL, document.getElementById("haloCanvas"));
+    var width = document.getElementById("canvasContainer").offsetWidth;
+    var p5Canvas = createCanvas(width, width, WEBGL, document.getElementById("haloCanvas"));
     p5Canvas.parent('canvasSection');
     center.x = 0;
     center.y = 0;
@@ -71,46 +72,6 @@ function setup() {
 
     
    
-    /*Controls from HTML document*/
-    
-    if (!controls) {
-        document.getElementById("controls").setAttribute("style", "display:none");
-
-    } else {
-    //Range sliders
-    sizeSlider = document.getElementById("size");
-    logoToggle = document.getElementById("logoSwitch")
-    radiusSlider = document.getElementById("radius");
-    rotationSlider = document.getElementById("rotation");
-    wobbleSlider = document.getElementById("wobble");
-
-    complexitySlider = document.getElementById("complexity");
-    extentSlider = document.getElementById("extent");
-    radialExtentSlider = document.getElementById("radialExtent");
-    radialVelocitySlider = document.getElementById("radialVelocity");
-    warpAngleSlider = document.getElementById("warpAngle");
-    warpVelocitySlider = document.getElementById("warpVelocity");
-    twistSlider = document.getElementById("twist");
-
-    colorRatioSlider = document.getElementById("colorRatio");
-    ringsSlider = document.getElementById("rings");
-    wavesSlider = document.getElementById("waves");
-    waveSpeedSlider = document.getElementById("waveSpeed");
-    speedSlider = document.getElementById("speed");
-    colorSegments = document.getElementById("colorSeg");
-
-    console.log("Size " + sizeSlider.value + "%")
-    console.log("Radius " + radiusSlider.value + "%")
-    console.log("Rotation " + rotationSlider.value + "%")
-    console.log("Wobble " + wobbleSlider.value + "%")
-    console.log("Complexity " + complexitySlider.value + "%")
-    console.log("Color Ratio " + colorRatioSlider.value + "%")
-    console.log("Rings " + ringsSlider.value)
-    console.log("Waves " + wavesSlider.value + "%")
-    console.log("Wave Speed " + waveSpeedSlider.value + "%")
-    console.log("Overall Speed " + speedSlider.value + "%")
-
-    }
     //DATA : role
     //Set default colors 
     centerColor.red = 255;
@@ -125,27 +86,14 @@ function setup() {
     waveColor.green = 0;
     waveColor.blue = 0;
     
-    //Canvas color block
-    colorCanvas = document.getElementById("colorCanvas");
-    colorCanvas.width = colorWheelRadius*2;
-    colorCanvas.height = colorWheelRadius*2;
-	context = colorCanvas.getContext("2d");
-    
-    //Mouse coords on color block
-    colorCanvas.addEventListener('mousedown', e => {
-        mx = e.offsetX - colorWheelRadius;
-        my = colorWheelRadius - e.offsetY;
-        mouseDownOnColor = true;
-    });
     
 }
 
 function windowResized () {
 
 
-    var width = document.getElementById("canvasSection").offsetWidth;
-    var height = document.getElementById("canvasSection").offsetHeight;
-    resizeCanvas(width, height, WEBGL, document.getElementById("haloCanvas"));
+    var width = document.getElementById("canvasContainer").offsetWidth;
+    resizeCanvas(width, width, WEBGL, document.getElementById("haloCanvas"));
 }
 
 var time = 0.0, radius = 125.0;
@@ -157,7 +105,7 @@ var pilAngle = 0.0;
 
 var size = 0.85, rotation = 0.0, rotationSpeed = 0.01, wobble = 0.25, complexity = 0.5, colorRatio = 0.5, waveSpeed = 0.5, speed = 0.5;
 
-var extent = 1.5;
+var extent = 2.5;
 var radialRange = 2.0;
 var radialVelocity = 1.0;
 var warpAngle = 0;
@@ -173,46 +121,29 @@ function draw() {
     randomSeed(0);
     background(0);
 
+    fill(255);
+    textFont(font);
+    textSize(12)
+    textAlign(CENTER);
+    text("Stephen Marshall", 0, 0)
 
     
     /*Set Parameters*/
     
-    if (controls) {
-    //vertices to be data-driven
-    size = 0.0 + sizeSlider.value/100.0; // DATA : weeks of activity
-    radius = radiusSlider.value/100.0;
-    logo = (logoToggle.value == 0) ? false : true;
-    rotationSpeed = (rotationSlider.value/100.0 - 0.5)*0.05; // DATA : 3 day point derivative
-    wobble = wobbleSlider.value/100.0;
-    complexity = 0.0 + complexitySlider.value/100.0; // DATA : 3 day posts
-    extent = extentSlider.value/1000.0*10.0;
-    radialRange = radialExtentSlider.value/1000.0*25.0;
-    radialVelocity = radialVelocitySlider.value/1000.0*20.0 - 10.0;
-    warpAngle = warpAngleSlider.value/1000.0*PI*2.0;
-    linearVelocity = warpVelocitySlider.value/1000.0*25.0;
-    twist = twistSlider.value/1000.0*PI/2.0 - PI/4.0;
-
-    colorRatio = (colorRatioSlider.value/50.0)-1; // DATA : 3 day point toal
-    ringCount = floor(ringsSlider.value);
-    waveCount = floor(wavesSlider.value/10.0*ringCount/100); // DATA : 3 day responses
-    waveSpeed = waveSpeedSlider.value/100.0;
-    speed = speedSlider.value/1000.0 + 0.05;
-    colorToggle = colorSegments.value;
-    } else {
 
     
     /* UNCOMMENT THIS TO CHANGE INPUTS */
 
     size = 0.6;            
-    radius = 1.0;           
+    radius = 0.5;           
     logo = 0.0;       
     rotationSpeed = 0.005;   
     wobble = 0.0;           
     complexity = 0.75;      
     colorRatio = 0.25;       
-    ringCount = 80;        
-    waveCount = 0.2;
-    waveSpeed = 0.2;
+    ringCount = 25;        
+    waveCount = 0.0;
+    waveSpeed = 0.0;
     speed = 0.1;
     colorToggle = 2;    
 
@@ -229,7 +160,7 @@ function draw() {
     waveColor.green = 255;
     waveColor.blue = 255;
 
-    }
+    
 
 
     if (logo == true) {
@@ -293,12 +224,6 @@ function draw() {
     mouseDownOnColor = false;
 
 
-    var centerColorDot = document.getElementById("centerColorDot");
-    var mainColorDot = document.getElementById("mainColorDot");
-    var waveColorDot = document.getElementById("waveColorDot");
-    centerColorDot.style.fill = 'rgb(' + centerColor.red + ',' + centerColor.green + ',' + centerColor.blue + ')';
-    mainColorDot.style.fill = 'rgb(' + mainColor.red + ',' + mainColor.green + ',' + mainColor.blue + ')';
-    waveColorDot.style.fill = 'rgb(' + waveColor.red + ',' + waveColor.green + ',' + waveColor.blue + ')';
     
     
     
