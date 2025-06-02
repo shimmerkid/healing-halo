@@ -4,42 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HEALING ORACLE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+    <script type="text/javascript" src="halo/p5.min.js"></script>
+    <script type="text/javascript" src="halo/halo2.js"></script>
+    
     <style>
         body { background: #0f0f0f; }
-        .halo-container { height: 300px; }
-        textarea { resize: vertical; min-height: 120px; }
+        textarea { resize: vertical; }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
     
+    <div class="haloDirectiveContainer md:float-left md:w-2/3" id="canvasContainer">
     <!-- HALO COMPONENT -->
-    <div class="halo-container w-full mb-8">
-        <iframe id="haloFrame" src="halo/index.html" class="w-full h-full border-0 rounded-lg"></iframe>
-    </div>
-
-    <div class="container mx-auto px-4 max-w-4xl">
+    <div class="canvasSection" id="canvasSection"></div>
+    
+    <div class="directivesContainer mx-auto px-4 max-w-4xl">
         
-        <!-- JOURNAL ENTRY -->
+
+        <!-- DIRECTIVES -->
         <div class="mb-8">
-            <h2 class="text-xl mb-4">JOURNAL ENTRY</h2>
-            <textarea 
-                id="journalInput" 
-                class="w-full p-4 bg-gray-800 border border-gray-700 rounded text-white"
-                placeholder="ENTER YOUR LOG ENTRY"
-            ></textarea>
-            <button 
-                id="submitEntry" 
-                class="mt-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded"
-            >
-                SUBMIT
-            </button>
+            <h2 class="text-xl mb-4 pt-8">DIRECTIVES</h2>
+            <div id="directivesList" class="space-y-2"></div>
         </div>
 
-        <!-- JOURNAL ENTRIES LIST -->
+        <!-- SCORE DISPLAY -->
         <div class="mb-8">
-            <h2 class="text-xl mb-4">RECENT ENTRIES</h2>
-            <div id="entriesList" class="space-y-2"></div>
+            <h2 class="text-xl mb-4">CURRENT SCORE</h2>
+            <div id="scoreDisplay" class="text-2xl font-bold text-green-400">0</div>
+        </div>
+
+
+        <!-- ADMIN TOGGLE -->
+        <div class="float-right mb-8">
+            <button id="showAdmin" class="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-xs">ADMIN</button>
         </div>
 
         <!-- ADMIN INTERFACE (HIDDEN BY DEFAULT) -->
@@ -65,24 +65,42 @@
             <button id="toggleAdmin" class="text-sm text-red-400 hover:text-red-300">HIDE ADMIN</button>
         </div>
 
-        <!-- DIRECTIVES -->
+
+    </div>
+
+    </div>
+
+    <div class="journalContainer md:float-right md:w-1/3 mx-auto px-4 max-w-4xl">
+
+        <!-- JOURNAL ENTRY -->
         <div class="mb-8">
-            <h2 class="text-xl mb-4">DIRECTIVES</h2>
-            <div id="directivesList" class="space-y-2"></div>
+            <h2 class="text-xl mb-4 pt-8">JOURNAL ENTRY</h2>
+            <textarea rows="1"
+                id="journalInputTitle" 
+                class="w-full h-full p-4 bg-gray-800 border border-gray-700 rounded text-white"
+                placeholder="ENTER YOUR LOG TITLE"
+            ></textarea>
+            <textarea rows="10"
+                id="journalInput" 
+                class="w-full r-20 p-4 bg-gray-800 border border-gray-700 rounded text-white"
+                placeholder="ENTER YOUR LOG ENTRY"
+            ></textarea>
+            <button 
+                id="submitEntry" 
+                class="mt-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded"
+            >
+                SUBMIT
+            </button>
         </div>
 
-        <!-- SCORE DISPLAY -->
+        <!-- JOURNAL ENTRIES LIST -->
         <div class="mb-8">
-            <h2 class="text-xl mb-4">CURRENT SCORE</h2>
-            <div id="scoreDisplay" class="text-2xl font-bold text-green-400">0</div>
-        </div>
-
-        <!-- ADMIN TOGGLE -->
-        <div class="fixed bottom-4 right-4">
-            <button id="showAdmin" class="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-xs">ADMIN</button>
+            <h2 class="text-xl mb-4">RECENT ENTRIES</h2>
+            <div id="entriesList" class="space-y-2"></div>
         </div>
 
     </div>
+
 
     <script src="js/journal.js"></script>
     <script src="js/directives.js"></script>
