@@ -1,3 +1,5 @@
+// JOURNAL ENTRY MANAGEMENT
+
 class JournalManager {
     static STORAGE_KEY = 'journalEntries';
 
@@ -62,6 +64,29 @@ class JournalManager {
         return stored ? JSON.parse(stored) : [];
     }
 
+    static deleteEntry(entryId) {
+        const entries = this.getEntries();
+        const filtered = entries.filter(entry => entry.id !== entryId);
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filtered));
+        this.loadEntries();
+        
+        // TRIGGER SCORE UPDATE
+        document.dispatchEvent(new CustomEvent('dataChange'));
+    }
+
+    static toggleEntryText(entryId) {
+        const textElement = document.getElementById(`text-${entryId}`);
+        const button = document.getElementById(`toggle-${entryId}`);
+        
+        if (textElement.style.display === 'none') {
+            textElement.style.display = 'block';
+            button.textContent = 'HIDE TEXT';
+        } else {
+            textElement.style.display = 'none';
+            button.textContent = 'SHOW TEXT';
+        }
+    }
+
     static loadEntries() {
         const entries = this.getEntries();
         this.entriesList.innerHTML = '';
@@ -75,17 +100,37 @@ class JournalManager {
                 hour: '2-digit',
                 minute: '2-digit'
             });
+
             
             entryEl.innerHTML = `
                 <div class="text-sm text-gray-400 mb-1">${date} ${time} • ${entry.wordCount} WORDS</div>
-                <div class="text-white">${entry.title}</div>
-                <div class="text-white">${entry.text}</div>
-                <button class="bg-red-800 pl-2 pr-2 m-0 text-white float-right">DELETE</button>
-                <button class="bg-green-800 pl-2 pr-2 m-0 mr-2 text-white float-right">SHOW TEXT</button>
+                <div class="text-white font-bold mb-2">${entry.title}</div>
+                <div id="text-${entry.id}" class="text-white mb-3" style="display: none;">${entry.text}</div>
+                <div class="flex gap-2 justify-end">
+                    <button 
+                        id="toggle-${entry.id}" 
+                        class="bg-green-800 px-3 py-1 text-white rounded hover:bg-green-700"
+                        onclick="JournalManager.toggleEntryText(${entry.id})"
+                    >
+                        SHOW TEXT
+                    </button>
+                    <button 
+                        class="bg-red-800 px-3 py-1 text-white rounded hover:bg-red-700"
+                        onclick="JournalManager.confirmDelete(${entry.id}, '${entry.title}')"
+                    >
+                        DELETE
+                    </button>
+                </div>
             `;
             
             this.entriesList.appendChild(entryEl);
         });
+    }
+
+    static confirmDelete(entryId, entryTitle) {
+        if (confirm(`DELETE ENTRY: "${entryTitle}"?`)) {
+            this.deleteEntry(entryId);
+        }
     }
 
     static getEntryStats() {

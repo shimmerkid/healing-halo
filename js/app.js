@@ -22,6 +22,11 @@ class HealingOracle {
     }
 
     setupEventListeners() {
+
+        // RECURRING TOGGLE HANDLER
+document.getElementById('recurringToggle').addEventListener('change', (e) => {
+    document.getElementById('recurrencePattern').disabled = !e.target.checked;
+});
         // LISTEN FOR SCORE UPDATES
         document.addEventListener('scoreUpdate', (e) => {
             this.updateScore(e.detail.score);
@@ -52,7 +57,32 @@ class HealingOracle {
         });
     }
 
-    addDirective() {
+addDirective() {
+    const text = document.getElementById('directiveText').value.trim();
+    const category = document.getElementById('directiveCategory').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const recurring = document.getElementById('recurringToggle').checked;
+    const recurrencePattern = document.getElementById('recurrencePattern').value;
+    
+    if (!text || !startDate) {
+        alert('TEXT AND START DATE REQUIRED');
+        return;
+    }
+    
+    DirectiveManager.addDirective(text, category, startDate, endDate, recurring, recurrencePattern);
+    
+    // CLEAR FORM
+    document.getElementById('directiveText').value = '';
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    document.getElementById('recurringToggle').checked = false;
+    document.getElementById('recurrencePattern').disabled = true;
+    
+    this.updateDisplay();
+} 
+
+    addDirective2() {
         const text = document.getElementById('directiveText').value.trim();
         const category = document.getElementById('directiveCategory').value;
         
