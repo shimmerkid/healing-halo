@@ -16,7 +16,7 @@ class DirectiveManager {
         this.directivesList.innerHTML = '';
 
         if (directives.length === 0) {
-            this.directivesList.innerHTML = '<div class="text-gray-400 text-center p-4">NO ACTIVE DIRECTIVES FOR TODAY<br>CHECK ADMIN PANEL FOR SCHEDULING</div>';
+            this.directivesList.innerHTML = '<div class="text-gray-400 text-center p-4 rounded-lg border border-gray-600 border-dashed">NO ACTIVE DIRECTIVES FOR TODAY<br>CHECK ADMIN PANEL FOR SCHEDULING</div>';
             return;
         }
 
@@ -24,21 +24,24 @@ class DirectiveManager {
             const isCompleted = states[directive.id] || false;
             
             const directiveEl = document.createElement('div');
-            directiveEl.className = 'flex items-center p-3 bg-gray-800 rounded hover:bg-gray-700 transition-colors';
+            directiveEl.className = 'flex items-center p-4 bg-gray-800/60 backdrop-blur-sm rounded-lg border border-purple-500/30 hover:border-purple-400/50 hover:bg-gray-800/80 transition-all duration-300';
             
             // FORMAT SCHEDULE INFO
             const scheduleInfo = this.formatScheduleInfo(directive);
             
+            // GET CATEGORY COLOR
+            const categoryColor = this.getCategoryColor(directive.category);
+            
             directiveEl.innerHTML = `
                 <input 
                     type="checkbox" 
-                    class="mr-3 w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                    class="mr-4 w-5 h-5 rounded border-2 border-purple-400 text-purple-500 focus:ring-purple-500 focus:ring-2 bg-transparent"
                     ${isCompleted ? 'checked' : ''}
                     data-directive-id="${directive.id}"
                 >
                 <div class="flex-1">
-                    <div class="text-white ${isCompleted ? 'line-through opacity-60' : ''}">${directive.text}</div>
-                    <div class="text-xs text-gray-400">${directive.category} • ${scheduleInfo}</div>
+                    <div class="text-white font-medium ${isCompleted ? 'line-through opacity-60' : ''}">${directive.text}</div>
+                    <div class="text-sm mt-1" style="color: ${categoryColor};">${directive.category} • ${scheduleInfo}</div>
                 </div>
             `;
 
@@ -49,6 +52,19 @@ class DirectiveManager {
 
             this.directivesList.appendChild(directiveEl);
         });
+    }
+
+    static getCategoryColor(category) {
+        const categoryColors = {
+            'MINDFULNESS': '#06ffa5',
+            'PLANNING': '#6366f1',
+            'PHYSICAL': '#ff006e',
+            'SOCIAL': '#8b5cf6',
+            'GROWTH': '#00d9ff',
+            'SOMATIC': '#7c3aed',
+            'GENERAL': '#94a3b8'
+        };
+        return categoryColors[category] || '#94a3b8';
     }
 
     static formatScheduleInfo(directive) {

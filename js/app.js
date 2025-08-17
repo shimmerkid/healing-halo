@@ -2,7 +2,7 @@ class HealingOracle {
     constructor() {
         this.haloFrame = document.getElementById('haloFrame');
         this.scoreDisplay = document.getElementById('scoreDisplay');
-        this.adminPanel = document.getElementById('adminPanel');
+        this.adminModal = document.getElementById('adminModal');
         this.currentScore = 0;
         this.currentVertices = null;
     }
@@ -37,13 +37,31 @@ document.getElementById('recurringToggle').addEventListener('change', (e) => {
             this.updateDisplay();
         });
 
-        // ADMIN PANEL CONTROLS
+        // ADMIN MODAL CONTROLS
         document.getElementById('showAdmin').addEventListener('click', () => {
-            this.adminPanel.classList.remove('hidden');
+            this.openAdminModal();
         });
 
-        document.getElementById('toggleAdmin').addEventListener('click', () => {
-            this.adminPanel.classList.add('hidden');
+        document.getElementById('closeAdminModal').addEventListener('click', () => {
+            this.closeAdminModal();
+        });
+
+        document.getElementById('cancelAdmin').addEventListener('click', () => {
+            this.closeAdminModal();
+        });
+
+        // Close modal when clicking outside
+        this.adminModal.addEventListener('click', (e) => {
+            if (e.target === this.adminModal) {
+                this.closeAdminModal();
+            }
+        });
+
+        // ESC key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.adminModal.classList.contains('active')) {
+                this.closeAdminModal();
+            }
         });
 
         document.getElementById('addDirective').addEventListener('click', () => {
@@ -80,7 +98,27 @@ addDirective() {
     document.getElementById('recurrencePattern').disabled = true;
     
     this.updateDisplay();
+    this.closeAdminModal();
 } 
+
+    openAdminModal() {
+        this.adminModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            document.getElementById('directiveText').focus();
+        }, 300);
+    }
+
+    closeAdminModal() {
+        this.adminModal.classList.remove('active');
+        document.body.style.overflow = '';
+        // Clear form fields
+        document.getElementById('directiveText').value = '';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+        document.getElementById('recurringToggle').checked = false;
+        document.getElementById('recurrencePattern').disabled = true;
+    }
 
     addDirective2() {
         const text = document.getElementById('directiveText').value.trim();

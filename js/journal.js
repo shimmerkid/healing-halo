@@ -7,6 +7,10 @@ class JournalManager {
         this.journalInput = document.getElementById('journalInput');
         this.journalInputTitle = document.getElementById('journalInputTitle');
         this.submitButton = document.getElementById('submitEntry');
+        this.cancelButton = document.getElementById('cancelEntry');
+        this.openModalButton = document.getElementById('openJournalModal');
+        this.closeModalButton = document.getElementById('closeJournalModal');
+        this.journalModal = document.getElementById('journalModal');
         this.entriesList = document.getElementById('entriesList');
 
         this.setupEventListeners();
@@ -18,9 +22,30 @@ class JournalManager {
             this.submitEntry();
         });
 
+        this.cancelButton.addEventListener('click', () => {
+            this.closeModal();
+        });
+
+        this.openModalButton.addEventListener('click', () => {
+            this.openModal();
+        });
+
+        this.closeModalButton.addEventListener('click', () => {
+            this.closeModal();
+        });
+
+        // Close modal when clicking outside
+        this.journalModal.addEventListener('click', (e) => {
+            if (e.target === this.journalModal) {
+                this.closeModal();
+            }
+        });
+
         this.journalInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && e.ctrlKey) {
                 this.submitEntry();
+            } else if (e.key === 'Escape') {
+                this.closeModal();
             }
         });
     }
@@ -41,6 +66,7 @@ class JournalManager {
         this.saveEntry(entry);
         this.journalInput.value = '';
         this.journalInputTitle.value = '';
+        this.closeModal();
         this.loadEntries();
         
         // TRIGGER SCORE UPDATE
@@ -93,7 +119,7 @@ class JournalManager {
 
         entries.slice(0, 10).forEach(entry => {
             const entryEl = document.createElement('div');
-            entryEl.className = 'p-4 pb-8 bg-gray-800 rounded border-l-4 border-blue-500';
+            entryEl.className = 'p-5 bg-gray-800/60 backdrop-blur-sm rounded-xl border border-indigo-500/30 hover:border-indigo-400/50 transition-all duration-300';
             
             const date = new Date(entry.timestamp).toLocaleDateString();
             const time = new Date(entry.timestamp).toLocaleTimeString('en-US', {
@@ -103,19 +129,19 @@ class JournalManager {
 
             
             entryEl.innerHTML = `
-                <div class="text-sm text-gray-400 mb-1">${date} ${time} • ${entry.wordCount} WORDS</div>
-                <div class="text-white font-bold mb-2">${entry.title}</div>
-                <div id="text-${entry.id}" class="text-white mb-3" style="display: none;">${entry.text}</div>
-                <div class="flex gap-2 justify-end">
+                <div class="text-sm mb-2 web3-glow" style="color: var(--web3-cyan);">${date} ${time} • ${entry.wordCount} WORDS</div>
+                <div class="text-white font-semibold mb-3 text-lg">${entry.title}</div>
+                <div id="text-${entry.id}" class="text-gray-200 mb-4 font-mono text-sm leading-relaxed" style="display: none;">${entry.text}</div>
+                <div class="flex gap-3 justify-end">
                     <button 
                         id="toggle-${entry.id}" 
-                        class="bg-green-800 px-3 py-1 text-white rounded hover:bg-green-700"
+                        class="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-500/30 hover:border-emerald-400 cursor-pointer"
                         onclick="JournalManager.toggleEntryText(${entry.id})"
                     >
                         SHOW TEXT
                     </button>
                     <button 
-                        class="bg-red-800 px-3 py-1 text-white rounded hover:bg-red-700"
+                        class="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 bg-red-600/80 hover:bg-red-500 border border-red-500/30 hover:border-red-400 cursor-pointer"
                         onclick="JournalManager.confirmDelete(${entry.id}, '${entry.title}')"
                     >
                         DELETE
@@ -131,6 +157,21 @@ class JournalManager {
         if (confirm(`DELETE ENTRY: "${entryTitle}"?`)) {
             this.deleteEntry(entryId);
         }
+    }
+
+    static openModal() {
+        this.journalModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            this.journalInputTitle.focus();
+        }, 300);
+    }
+
+    static closeModal() {
+        this.journalModal.classList.remove('active');
+        document.body.style.overflow = '';
+        this.journalInput.value = '';
+        this.journalInputTitle.value = '';
     }
 
     static getEntryStats() {
