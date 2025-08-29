@@ -15,7 +15,8 @@ class HealingOracle {
     constructor() {
         this.haloFrame = document.getElementById('haloFrame');
         this.scoreDisplay = document.getElementById('scoreDisplay');
-        this.adminPanel = document.getElementById('adminPanel');
+        this.adminModal = document.getElementById('adminModal');
+        this.journalModal = document.getElementById('journalModal');
         this.sliders = document.getElementById('controls')
         this.currentScore = 0;
         this.currentVertices = null;
@@ -31,6 +32,12 @@ class HealingOracle {
         
         // INITIAL LOAD
         this.updateDisplay();
+        this.initializeEntriesPane();
+        
+        // Initialize directives pane after a delay to ensure content is loaded
+        setTimeout(() => {
+            this.initializeDirectivesPane();
+        }, 100);
         
         console.log('HEALING ORACLE INITIALIZED');
     }
@@ -78,12 +85,64 @@ document.getElementById('recurringToggle').addEventListener('change', (e) => {
         });
 
         document.getElementById('showAdmin').addEventListener('click', () => {
-            this.adminPanel.classList.remove('hidden');
+            this.adminModal.classList.add('active');
             DirectiveManager.cancelEdit();
         });
 
-        document.getElementById('toggleAdmin').addEventListener('click', () => {
-            this.adminPanel.classList.add('hidden');
+        document.getElementById('closeAdminModal').addEventListener('click', () => {
+            this.adminModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside content
+        this.adminModal.addEventListener('click', (e) => {
+            if (e.target === this.adminModal) {
+                this.adminModal.classList.remove('active');
+            }
+        });
+
+        // Journal modal interactions
+        document.getElementById('showJournalModal').addEventListener('click', () => {
+            this.journalModal.classList.add('active');
+        });
+
+        document.getElementById('closeJournalModal').addEventListener('click', () => {
+            this.journalModal.classList.remove('active');
+        });
+
+        document.getElementById('cancelJournalEntry').addEventListener('click', () => {
+            this.journalModal.classList.remove('active');
+            this.clearJournalForm();
+        });
+
+        // Close journal modal when clicking outside content
+        this.journalModal.addEventListener('click', (e) => {
+            if (e.target === this.journalModal) {
+                this.journalModal.classList.remove('active');
+                this.clearJournalForm();
+            }
+        });
+
+        // Close modals with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (this.adminModal.classList.contains('active')) {
+                    this.adminModal.classList.remove('active');
+                }
+                if (this.journalModal.classList.contains('active')) {
+                    this.journalModal.classList.remove('active');
+                    this.clearJournalForm();
+                }
+            }
+        });
+
+        // Collapsible entries pane
+        document.getElementById('toggleEntries').addEventListener('click', () => {
+            this.toggleEntriesPane();
+        });
+
+        // Collapsible directives pane
+        document.getElementById('toggleDirectives').addEventListener('click', () => {
+            this.toggleDirectivesPane();
         });
 
         document.getElementById('addDirective').addEventListener('click', () => {
@@ -98,7 +157,7 @@ document.getElementById('recurringToggle').addEventListener('change', (e) => {
         });
 
         document.getElementById('cancelEdit').addEventListener('click', () => {
-            this.adminPanel.classList.add('hidden');
+            this.adminModal.classList.remove('active');
             DirectiveManager.cancelEdit();
         });
 
@@ -162,7 +221,11 @@ removeDirective(editID) {
     updateScore(newScore) {
         this.currentScore = newScore;
         scoreGlobal = newScore;
-        this.scoreDisplay.textContent = Math.round(newScore);
+        const roundedScore = Math.round(newScore);
+        this.scoreDisplay.innerHTML = `
+            <span class="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent blur-sm">${roundedScore}</span>
+            <span class="relative bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">${roundedScore}</span>
+        `;
     }
 
     updateVertices(vertices) {
@@ -193,6 +256,83 @@ removeDirective(editID) {
             console.log('VERTICES SENT TO HALO:', vertices);
         } catch (e) {
             console.log('HALO NOT READY YET');
+        }
+    }
+
+    clearJournalForm() {
+        document.getElementById('journalInputTitle').value = '';
+        document.getElementById('journalInput').value = '';
+    }
+
+    initializeEntriesPane() {
+        const collapsible = document.getElementById('entriesCollapsible');
+        const icon = document.getElementById('entriesToggleIcon');
+        const isExpanded = localStorage.getItem('entriesExpanded') === 'true'; // Default to collapsed
+        
+        if (isExpanded) {
+            collapsible.style.maxHeight = collapsible.scrollHeight + 'px';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            collapsible.style.maxHeight = '0px';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    initializeDirectivesPane() {
+        const collapsible = document.getElementById('directivesCollapsible');
+        const icon = document.getElementById('directivesToggleIcon');
+        const isExpanded = localStorage.getItem('directivesExpanded') === 'true'; // Default to collapsed
+        
+        if (isExpanded) {
+            // Use the same technique as the toggle function
+            collapsible.style.maxHeight = 'none';
+            setTimeout(() => {
+                collapsible.style.maxHeight = collapsible.scrollHeight + 'px';
+            }, 10);
+            icon.style.transform = 'rotate(180deg)'; // Up arrow when expanded
+        } else {
+            collapsible.style.maxHeight = '0px';
+            icon.style.transform = 'rotate(0deg)'; // Down arrow when collapsed
+        }
+    }
+
+    toggleEntriesPane() {
+        const collapsible = document.getElementById('entriesCollapsible');
+        const icon = document.getElementById('entriesToggleIcon');
+        
+        if (collapsible.style.maxHeight === '0px') {
+            // Expand - use setTimeout to ensure DOM is fully rendered
+            collapsible.style.maxHeight = 'none'; // Temporarily remove constraint
+            setTimeout(() => {
+                collapsible.style.maxHeight = collapsible.scrollHeight + 'px';
+            }, 10);
+            icon.style.transform = 'rotate(180deg)';
+            localStorage.setItem('entriesExpanded', 'true');
+        } else {
+            // Collapse
+            collapsible.style.maxHeight = '0px';
+            icon.style.transform = 'rotate(0deg)';
+            localStorage.setItem('entriesExpanded', 'false');
+        }
+    }
+
+    toggleDirectivesPane() {
+        const collapsible = document.getElementById('directivesCollapsible');
+        const icon = document.getElementById('directivesToggleIcon');
+        
+        if (collapsible.style.maxHeight === '0px' || collapsible.style.maxHeight === '') {
+            // Expand - use setTimeout to ensure DOM is fully rendered
+            collapsible.style.maxHeight = 'none'; // Temporarily remove constraint
+            setTimeout(() => {
+                collapsible.style.maxHeight = collapsible.scrollHeight + 'px';
+            }, 10);
+            icon.style.transform = 'rotate(180deg)'; // Up arrow when expanded
+            localStorage.setItem('directivesExpanded', 'true');
+        } else {
+            // Collapse
+            collapsible.style.maxHeight = '0px';
+            icon.style.transform = 'rotate(0deg)'; // Down arrow when collapsed
+            localStorage.setItem('directivesExpanded', 'false');
         }
     }
 

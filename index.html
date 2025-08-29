@@ -1,498 +1,1300 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HEALING ORACLE</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        :root {
-            --web3-primary: #6366f1;
-            --web3-secondary: #8b5cf6;
-            --web3-accent: #06ffa5;
-            --web3-accent-pink: #ff006e;
-            --web3-dark: #0a0a0f;
-            --web3-darker: #050508;
-            --web3-gray: #1a1a2e;
-            --web3-gray-light: #252541;
-            --web3-cyan: #00d9ff;
-            --web3-purple: #7c3aed;
+      :root {
+        --web3-primary: #6366f1;
+        --web3-secondary: #8b5cf6;
+        --web3-accent: #06ffa5;
+        --web3-accent-pink: #ff006e;
+        --web3-dark: #0a0a0f;
+        --web3-darker: #050508;
+        --web3-gray: #1a1a2e;
+        --web3-gray-light: #252541;
+        --web3-cyan: #00d9ff;
+        --web3-purple: #7c3aed;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #0a0f1c 0%,
+          #1a1b2e 50%,
+          #16213e 100%
+        );
+        font-family: "Nunito", sans-serif;
+        min-height: 100vh;
+        position: relative;
+        font-weight: 400;
+        letter-spacing: 0.015em;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+                /* Healing mandala pattern */ radial-gradient(
+            circle at 50% 50%,
+            rgba(6, 255, 165, 0.25) 0%,
+            rgba(6, 255, 165, 0.08) 25%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(99, 102, 241, 0.2) 0%,
+            rgba(99, 102, 241, 0.06) 20%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(139, 92, 246, 0.18) 0%,
+            rgba(139, 92, 246, 0.05) 22%,
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 70% 20%,
+            rgba(6, 255, 165, 0.15) 0%,
+            rgba(6, 255, 165, 0.04) 18%,
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at 30% 80%,
+            rgba(255, 0, 110, 0.12) 0%,
+            rgba(255, 0, 110, 0.03) 15%,
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 10% 60%,
+            rgba(0, 217, 255, 0.1) 0%,
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 90% 40%,
+            rgba(6, 255, 165, 0.1) 0%,
+            transparent 25%
+          ),
+          /* Organic wave pattern */
+            repeating-linear-gradient(
+              45deg,
+              transparent,
+              transparent 30px,
+              rgba(6, 255, 165, 0.06) 30px,
+              rgba(6, 255, 165, 0.06) 33px,
+              transparent 33px,
+              transparent 60px
+            ),
+          repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 45px,
+            rgba(99, 102, 241, 0.04) 45px,
+            rgba(99, 102, 241, 0.04) 48px,
+            transparent 48px,
+            transparent 90px
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+                /* Sacred geometry circles - flower of life inspired */ radial-gradient(
+            circle at 25% 25%,
+            transparent 25px,
+            rgba(6, 255, 165, 0.08) 26px,
+            rgba(6, 255, 165, 0.08) 30px,
+            transparent 31px
+          ),
+          radial-gradient(
+            circle at 75% 25%,
+            transparent 20px,
+            rgba(139, 92, 246, 0.08) 21px,
+            rgba(139, 92, 246, 0.08) 25px,
+            transparent 26px
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            transparent 40px,
+            rgba(99, 102, 241, 0.06) 41px,
+            rgba(99, 102, 241, 0.06) 45px,
+            transparent 46px
+          ),
+          radial-gradient(
+            circle at 25% 75%,
+            transparent 18px,
+            rgba(6, 255, 165, 0.07) 19px,
+            rgba(6, 255, 165, 0.07) 22px,
+            transparent 23px
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            transparent 30px,
+            rgba(255, 0, 110, 0.07) 31px,
+            rgba(255, 0, 110, 0.07) 35px,
+            transparent 36px
+          ),
+          radial-gradient(
+            circle at 15% 15%,
+            transparent 12px,
+            rgba(0, 217, 255, 0.06) 13px,
+            rgba(0, 217, 255, 0.06) 16px,
+            transparent 17px
+          ),
+          radial-gradient(
+            circle at 85% 85%,
+            transparent 22px,
+            rgba(139, 92, 246, 0.06) 23px,
+            rgba(139, 92, 246, 0.06) 27px,
+            transparent 28px
+          ),
+          radial-gradient(
+            circle at 40% 15%,
+            transparent 15px,
+            rgba(6, 255, 165, 0.05) 16px,
+            rgba(6, 255, 165, 0.05) 19px,
+            transparent 20px
+          ),
+          radial-gradient(
+            circle at 60% 85%,
+            transparent 18px,
+            rgba(0, 217, 255, 0.05) 19px,
+            rgba(0, 217, 255, 0.05) 22px,
+            transparent 23px
+          );
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      textarea {
+        resize: vertical;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .web3-card {
+        background: rgba(26, 26, 46, 0.6);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .web3-button {
+        background: linear-gradient(
+          135deg,
+          var(--web3-primary),
+          var(--web3-secondary)
+        );
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .web3-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .web3-button:hover::before {
+        left: 100%;
+      }
+
+      .web3-button:hover {
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .web3-input {
+        background: rgba(37, 37, 65, 0.8);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .web3-input:focus {
+        border-color: var(--web3-accent);
+        box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
+        outline: none;
+      }
+
+      .web3-glow {
+        text-shadow: 0 0 10px currentColor;
+      }
+
+      .web3-score {
+        background: linear-gradient(
+          135deg,
+          var(--web3-accent),
+          var(--web3-cyan)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        text-shadow: 0 0 30px rgba(6, 255, 165, 0.5);
+        animation: pulse-glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes pulse-glow {
+        from {
+          filter: brightness(1) drop-shadow(0 0 20px rgba(6, 255, 165, 0.3));
         }
-        
-        body { 
-            background: linear-gradient(135deg, #0a0f1c 0%, #1a1b2e 50%, #16213e 100%);
-            font-family: 'Nunito', sans-serif;
-            min-height: 100vh;
-            position: relative;
-            font-weight: 400;
-            letter-spacing: 0.015em;
+        to {
+          filter: brightness(1.2) drop-shadow(0 0 30px rgba(6, 255, 165, 0.6));
         }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                /* Healing mandala pattern */
-                radial-gradient(circle at 50% 50%, rgba(6, 255, 165, 0.25) 0%, rgba(6, 255, 165, 0.08) 25%, transparent 50%),
-                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.06) 20%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0.05) 22%, transparent 45%),
-                radial-gradient(circle at 70% 20%, rgba(6, 255, 165, 0.15) 0%, rgba(6, 255, 165, 0.04) 18%, transparent 35%),
-                radial-gradient(circle at 30% 80%, rgba(255, 0, 110, 0.12) 0%, rgba(255, 0, 110, 0.03) 15%, transparent 30%),
-                radial-gradient(circle at 10% 60%, rgba(0, 217, 255, 0.1) 0%, transparent 25%),
-                radial-gradient(circle at 90% 40%, rgba(6, 255, 165, 0.1) 0%, transparent 25%),
-                /* Organic wave pattern */
-                repeating-linear-gradient(
-                    45deg,
-                    transparent,
-                    transparent 30px,
-                    rgba(6, 255, 165, 0.06) 30px,
-                    rgba(6, 255, 165, 0.06) 33px,
-                    transparent 33px,
-                    transparent 60px
-                ),
-                repeating-linear-gradient(
-                    -45deg,
-                    transparent,
-                    transparent 45px,
-                    rgba(99, 102, 241, 0.04) 45px,
-                    rgba(99, 102, 241, 0.04) 48px,
-                    transparent 48px,
-                    transparent 90px
-                );
-            pointer-events: none;
-            z-index: -1;
+      }
+
+      .web3-title {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06ffa5);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradient-shift 3s ease-in-out infinite;
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+
+      @keyframes gradient-shift {
+        0%,
+        100% {
+          background-position: 0% 50%;
         }
-        
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                /* Sacred geometry circles - flower of life inspired */
-                radial-gradient(circle at 25% 25%, transparent 25px, rgba(6, 255, 165, 0.08) 26px, rgba(6, 255, 165, 0.08) 30px, transparent 31px),
-                radial-gradient(circle at 75% 25%, transparent 20px, rgba(139, 92, 246, 0.08) 21px, rgba(139, 92, 246, 0.08) 25px, transparent 26px),
-                radial-gradient(circle at 50% 50%, transparent 40px, rgba(99, 102, 241, 0.06) 41px, rgba(99, 102, 241, 0.06) 45px, transparent 46px),
-                radial-gradient(circle at 25% 75%, transparent 18px, rgba(6, 255, 165, 0.07) 19px, rgba(6, 255, 165, 0.07) 22px, transparent 23px),
-                radial-gradient(circle at 75% 75%, transparent 30px, rgba(255, 0, 110, 0.07) 31px, rgba(255, 0, 110, 0.07) 35px, transparent 36px),
-                radial-gradient(circle at 15% 15%, transparent 12px, rgba(0, 217, 255, 0.06) 13px, rgba(0, 217, 255, 0.06) 16px, transparent 17px),
-                radial-gradient(circle at 85% 85%, transparent 22px, rgba(139, 92, 246, 0.06) 23px, rgba(139, 92, 246, 0.06) 27px, transparent 28px),
-                radial-gradient(circle at 40% 15%, transparent 15px, rgba(6, 255, 165, 0.05) 16px, rgba(6, 255, 165, 0.05) 19px, transparent 20px),
-                radial-gradient(circle at 60% 85%, transparent 18px, rgba(0, 217, 255, 0.05) 19px, rgba(0, 217, 255, 0.05) 22px, transparent 23px);
-            pointer-events: none;
-            z-index: -2;
+        50% {
+          background-position: 100% 50%;
         }
-        
-        textarea { 
-            resize: vertical; 
-            font-family: 'JetBrains Mono', monospace;
+      }
+
+      .web3-floating {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
         }
-        
-        .web3-card {
-            background: rgba(26, 26, 46, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        50% {
+          transform: translateY(-10px);
         }
-        
-        .web3-button {
-            background: linear-gradient(135deg, var(--web3-primary), var(--web3-secondary));
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            box-shadow: 
-                0 4px 15px rgba(99, 102, 241, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+      }
+
+      .web3-pulse {
+        animation: pulse-border 2s linear infinite;
+      }
+
+      @keyframes pulse-border {
+        0% {
+          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
         }
-        
-        .web3-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+        70% {
+          box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
         }
-        
-        .web3-button:hover::before {
-            left: 100%;
+        100% {
+          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
         }
-        
-        .web3-button:hover {
-            box-shadow: 
-                0 6px 20px rgba(99, 102, 241, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transform: translateY(-1px);
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background: rgba(26, 26, 46, 0.95);
+        backdrop-filter: blur(30px);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transform: scale(0.9) translateY(20px);
+        transition: all 0.3s ease;
+      }
+
+      .modal-overlay.active .modal-content {
+        transform: scale(1) translateY(0);
+      }
+
+      .canvas-glow {
+        border-radius: 20px;
+        box-shadow: 0 0 50px rgba(99, 102, 241, 0.3),
+          0 0 100px rgba(139, 92, 246, 0.2),
+          inset 0 0 50px rgba(6, 255, 165, 0.1);
+      }
+
+      /* Canvas blending effect */
+      .canvasSection {
+        position: relative;
+        overflow: visible;
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+      }
+
+      .canvasSection::before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        right: -20px;
+        bottom: -20px;
+        background: radial-gradient(
+          circle at center,
+          transparent 65%,
+          rgba(10, 15, 28, 0.1) 70%,
+          rgba(10, 15, 28, 0.3) 80%,
+          rgba(10, 15, 28, 0.6) 90%,
+          rgba(10, 15, 28, 0.9) 100%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .canvasSection canvas {
+        position: relative;
+        z-index: 2;
+        border-radius: 50%;
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.2),
+          0 0 60px rgba(139, 92, 246, 0.15), 0 0 120px rgba(6, 255, 165, 0.1),
+          inset 0 0 40px rgba(255, 255, 255, 0.03);
+      }
+
+      /* Hide p5.js loading text */
+      body > div:last-child {
+        display: none !important;
+      }
+
+      /* Alternative: hide any element containing "Loading" */
+      [data-p5-instance] {
+        position: relative;
+      }
+
+      [data-p5-instance]::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 30px;
+        background: var(--web3-darker);
+        z-index: 1000;
+      }
+
+      /* Hide any loading text specifically */
+      div[style*="position: absolute"][style*="bottom"] {
+        display: none !important;
+      }
+
+      /* NEW JOURNAL ENTRY button glow effect */
+      #showJournalModal {
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3),
+          0 0 20px rgba(6, 255, 165, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        animation: journal-button-glow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes journal-button-glow {
+        from {
+          box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3),
+            0 0 20px rgba(6, 255, 165, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
-        
-        .web3-input {
-            background: rgba(37, 37, 65, 0.8);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+        to {
+          box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5),
+            0 0 35px rgba(6, 255, 165, 0.4),
+            0 0 50px rgba(139, 92, 246, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
-        
-        .web3-input:focus {
-            border-color: var(--web3-accent);
-            box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
-            outline: none;
-        }
-        
-        .web3-glow {
-            text-shadow: 0 0 10px currentColor;
-        }
-        
-        .web3-score {
-            background: linear-gradient(135deg, var(--web3-accent), var(--web3-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 30px rgba(6, 255, 165, 0.5);
-            animation: pulse-glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulse-glow {
-            from {
-                filter: brightness(1) drop-shadow(0 0 20px rgba(6, 255, 165, 0.3));
-            }
-            to {
-                filter: brightness(1.2) drop-shadow(0 0 30px rgba(6, 255, 165, 0.6));
-            }
-        }
-        
+      }
+
+      #showJournalModal:hover {
+        animation-play-state: paused;
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6),
+          0 0 40px rgba(6, 255, 165, 0.5),
+          0 0 60px rgba(139, 92, 246, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      /* Add cursor pointer to all interactive elements */
+      input[type="checkbox"],
+      input[type="range"],
+      select,
+      label {
+        cursor: pointer;
+      }
+
+      /* Admin button positioning */
+      .admin-button-fixed {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+      }
+
+      /* Journal button positioning */
+      .journal-button-fixed {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 999;
+      }
+
+      @media (max-width: 768px) {
         .web3-title {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06ffa5);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient-shift 3s ease-in-out infinite;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+          font-size: 2.5rem;
         }
-        
-        @keyframes gradient-shift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
+
+        .haloDirectiveContainer,
+        .journalContainer {
+          float: none !important;
+          width: 100% !important;
         }
-        
-        .web3-floating {
-            animation: float 6s ease-in-out infinite;
+
+        .canvasSection {
+          margin-left: 0 !important;
+          width: 100% !important;
+          aspect-ratio: 1/1;
         }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+
+        /* Hide current score section on mobile */
+        .journalContainer .mb-8:has(#scoreDisplay) {
+          display: none !important;
         }
-        
-        .web3-pulse {
-            animation: pulse-border 2s linear infinite;
+
+        /* Add extra top margin to journal button on mobile when score is hidden */
+        .journalContainer .mb-8:has(#showJournalModal) {
+          margin-top: 3rem !important;
         }
-        
-        @keyframes pulse-border {
-            0% {
-                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-            }
+
+        /* Add bottom padding to page content on mobile for admin button clearance */
+        body {
+          padding-bottom: 100px;
         }
-        
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-content {
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.3s ease;
-        }
-        
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
-        }
-        
-        .canvas-glow {
-            border-radius: 20px;
-            box-shadow: 
-                0 0 50px rgba(99, 102, 241, 0.3),
-                0 0 100px rgba(139, 92, 246, 0.2),
-                inset 0 0 50px rgba(6, 255, 165, 0.1);
-        }
-        
-        /* Hide p5.js loading text */
-        body > div:last-child {
-            display: none !important;
-        }
-        
-        /* Alternative: hide any element containing "Loading" */
-        [data-p5-instance] {
-            position: relative;
-        }
-        
-        [data-p5-instance]::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: var(--web3-darker);
-            z-index: 1000;
-        }
-        
-        /* Hide any loading text specifically */
-        div[style*="position: absolute"][style*="bottom"] {
-            display: none !important;
-        }
-        
-        /* Admin button positioning */
+
+        /* Position admin button at bottom right of canvas on mobile */
         .admin-button-fixed {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 999;
-            box-shadow: 
-                0 4px 15px rgba(255, 0, 110, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          top: auto;
+          bottom: 20px;
+          right: 20px;
+        }
+
+        /* Stack EDIT DIRECTIVE modal buttons vertically on mobile */
+        #adminModal .modal-content .flex.gap-3:has(#addDirective) {
+          flex-direction: column;
+        }
+
+        #adminModal .modal-content .flex.gap-3:has(#addDirective) button {
+          width: 100%;
+        }
+      }
+
+      /* Desktop canvas margin and layout */
+      @media (min-width: 769px) {
+        body {
+          padding-right: 3rem;
         }
         
-        @media (max-width: 768px) {
-            .web3-title {
-                font-size: 2.5rem;
-            }
-            
-            .haloDirectiveContainer,
-            .journalContainer {
-                float: none !important;
-                width: 100% !important;
-            }
-            
-            .canvasSection {
-                margin-left: 0 !important;
-                width: 100% !important;
-                aspect-ratio: 1/1;
-            }
+        .canvasSection {
+          margin-left: 2rem;
+          margin-right: 2rem;
         }
+
+        .haloDirectiveContainer {
+          width: 50% !important;
+        }
+
+        .journalContainer {
+          width: 38% !important;
+        }
+      }
+
+      /* Enhanced Journal Entry Card Styling */
+      .journal-entry-card {
+        background: rgba(26, 26, 46, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-left: 3px solid var(--web3-accent);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 20px rgba(99, 102, 241, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .journal-entry-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(6, 255, 165, 0.05) 0%,
+          transparent 25%,
+          transparent 75%,
+          rgba(99, 102, 241, 0.05) 100%
+        );
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .journal-entry-card:hover {
+        border-color: rgba(6, 255, 165, 0.4);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3),
+          0 0 30px rgba(6, 255, 165, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .journal-entry-card:hover::before {
+        opacity: 1;
+      }
+
+      .journal-entry-header {
+        margin-bottom: 1rem;
+      }
+
+      .journal-entry-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .journal-date {
+        color: var(--web3-accent);
+        font-weight: 600;
+      }
+
+      .journal-time {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .journal-wordcount {
+        color: var(--web3-secondary);
+        font-weight: 500;
+      }
+
+      .journal-entry-title {
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        background: linear-gradient(135deg, #ffffff, #e5e7eb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .journal-entry-text {
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        border-left: 2px solid var(--web3-accent);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .journal-entry-actions {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        margin-top: 1rem;
+      }
+
+      .journal-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .journal-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .journal-btn:hover::before {
+        left: 100%;
+      }
+
+      .journal-btn-show {
+        background: linear-gradient(
+          135deg,
+          var(--web3-primary),
+          var(--web3-secondary)
+        );
+        color: white;
+        border: 1px solid rgba(99, 102, 241, 0.3);
+      }
+
+      .journal-btn-show:hover {
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        transform: translateY(-1px);
+      }
+
+      .journal-btn-delete {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        color: white;
+        border: 1px solid rgba(220, 38, 38, 0.3);
+      }
+
+      .journal-btn-delete:hover {
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        transform: translateY(-1px);
+      }
+
+      @media (max-width: 768px) {
+        .journal-entry-meta {
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .journal-entry-actions {
+          justify-content: stretch;
+        }
+
+        .journal-btn {
+          flex: 1;
+        }
+      }
+
+      /* Enhanced Directive Card Styling */
+      .directive-card {
+        background: rgba(26, 26, 46, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-left: 3px solid var(--web3-accent);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 20px rgba(99, 102, 241, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .directive-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(6, 255, 165, 0.05) 0%,
+          transparent 25%,
+          transparent 75%,
+          rgba(99, 102, 241, 0.05) 100%
+        );
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .directive-card:hover {
+        border-color: rgba(6, 255, 165, 0.4);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3),
+          0 0 30px rgba(6, 255, 165, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .directive-card:hover::before {
+        opacity: 1;
+      }
+
+      .directive-card.completed {
+        border-left-color: var(--web3-cyan);
+        background: rgba(26, 46, 26, 0.8);
+        border-color: rgba(0, 217, 255, 0.2);
+      }
+
+      .directive-card.completed::before {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 217, 255, 0.08) 0%,
+          transparent 25%,
+          transparent 75%,
+          rgba(6, 255, 165, 0.08) 100%
+        );
+        opacity: 1;
+      }
+
+      .directive-card .directive-text {
+        color: white;
+        font-weight: 500;
+        line-height: 1.4;
+        position: relative;
+        z-index: 1;
+      }
+
+      .directive-card .directive-meta {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 0.25rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .directive-card .directive-tier {
+        color: var(--web3-accent);
+        font-weight: 600;
+      }
+
+      .directive-card .directive-category {
+        color: var(--web3-secondary);
+        font-weight: 500;
+      }
+
+      .directive-card .directive-schedule {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .directive-card input[type="checkbox"] {
+        width: 1.2rem;
+        height: 1.2rem;
+        accent-color: var(--web3-accent);
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+      }
+
+      .directive-card .directive-edit-btn {
+        background: linear-gradient(135deg, var(--web3-accent-pink), #e11d48);
+        border: 1px solid rgba(255, 0, 110, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      .directive-card .directive-edit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .directive-card .directive-edit-btn:hover::before {
+        left: 100%;
+      }
+
+      .directive-card .directive-edit-btn:hover {
+        box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+        transform: translateY(-1px);
+      }
+
+      /* Tier-based accent colors */
+      .directive-card[data-tier="TIER 1"] {
+        border-left-color: var(--web3-accent);
+      }
+
+      .directive-card[data-tier="TIER 2"] {
+        border-left-color: var(--web3-secondary);
+      }
+
+      .directive-card[data-tier="TIER 3"] {
+        border-left-color: var(--web3-accent-pink);
+      }
+
+      /* Category-based subtle background variations */
+      .directive-card[data-category="DIAGNOSTICS"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(6, 255, 165, 0.08),
+          transparent 50%
+        );
+      }
+
+      .directive-card[data-category="SUPPLEMENT_PROTOCOL"]::before,
+      .directive-card[data-category="DIETARY"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 92, 246, 0.08),
+          transparent 50%
+        );
+      }
+
+      .directive-card[data-category="MINDBODY"]::before,
+      .directive-card[data-category="MINDFULNESS"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.08),
+          transparent 50%
+        );
+      }
+
+      .directive-card[data-category="MOVEMENT"]::before,
+      .directive-card[data-category="BODYWORK"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 0, 110, 0.08),
+          transparent 50%
+        );
+      }
+
+      .directive-card[data-category="JOURNALING"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 217, 255, 0.08),
+          transparent 50%
+        );
+      }
+
+      .directive-card[data-category="ABSTENTIONS"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(220, 38, 38, 0.08),
+          transparent 50%
+        );
+      }
     </style>
-</head>
-<body class="bg-gray-900 text-white min-h-screen">
-    
-    <div class="haloDirectiveContainer md:float-left md:w-2/3" id="canvasContainer">
-    <!-- HALO COMPONENT -->
-    <div class="canvasSection" id="canvasSection"></div>
-    
-    <div class="directivesContainer mx-auto px-4 max-w-4xl">
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen">
+
+    <!-- PAGE HEADER -->
+    <header class="text-center py-8">
+      <h1 class="text-4xl md:text-6xl web3-glow font-bold mb-4" style="color: #ffffff; text-transform: uppercase; letter-spacing: 0.1em;">HEALING ORACLE</h1>
+    </header>
+
+    <div
+      class="haloDirectiveContainer md:float-left md:w-2/3 relative"
+      id="canvasContainer"
+    >
+      <!-- HALO COMPONENT -->
+      <div class="canvasSection" id="canvasSection" style="position: relative;">
+        <div id="haloCanvas" style="position: relative;"></div>
         
+        <!-- SCORE DISPLAY - Positioned relative to the actual canvas with responsive centering -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none score-overlay" style="z-index: 1000;">
+          <style>
+            @media (min-width: 769px) {
+              .score-overlay {
+                transform: translateX(2rem);
+              }
+            }
+            .score-container {
+              width: 35vw;
+              height: 35vw;
+              max-width: 280px;
+              max-height: 280px;
+              min-width: 180px;
+              min-height: 180px;
+            }
+          </style>
+          <div class="text-center">
+            <div class="relative inline-block">
+              <!-- Multiple glow layers for enhanced effect -->
+              <div class="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-400/40 via-cyan-400/40 to-violet-400/40 blur-3xl animate-pulse"></div>
+              <div class="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-400/30 via-cyan-400/30 to-violet-400/30 blur-2xl animate-pulse" style="animation-delay: 0.5s;"></div>
+              <div class="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-400/20 via-cyan-400/20 to-violet-400/20 blur-xl animate-pulse" style="animation-delay: 1s;"></div>
+              <!-- Score container -->
+              <div class="score-container relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm border-2 border-emerald-400/50 rounded-full p-8 flex flex-col items-center justify-center" 
+                   style="box-shadow: 
+                     0 0 20px rgba(6, 255, 165, 0.3),
+                     0 0 40px rgba(6, 255, 165, 0.2),
+                     0 0 80px rgba(6, 255, 165, 0.1),
+                     inset 0 0 20px rgba(6, 255, 165, 0.05);">
+                <!-- Name header -->
+                <h1 class="web3-glow font-bold mb-2" style="color: #ffffff; text-transform: uppercase; letter-spacing: 0.1em; font-size: clamp(1.2rem, 4vw, 2rem); line-height: 1;">STEPHEN MARSHALL</h1>
+                <!-- Current Score header inside box -->
+                <h2 class="web3-glow mb-3" style="color: #06ffa5; text-transform: uppercase; letter-spacing: 0.1em; font-size: clamp(0.6rem, 2vw, 0.9rem); line-height: 1;">CURRENT SCORE</h2>
+                <!-- Score value -->
+                <div id="scoreDisplay" class="web3-score font-bold relative" style="font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1;">
+                  <span class="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent blur-sm">0</span>
+                  <span class="relative bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- DIRECTIVES -->
-        <div class="mb-8">
-            <h2 class="text-xl mb-4 pt-8">DIRECTIVES</h2>
-            <div id="directivesList" class="space-y-2"></div>
+      <div class="directivesContainer mx-auto px-4 max-w-4xl">
+        <!-- ADMIN INTERFACE AS MODAL -->
+        <div id="adminModal" class="modal-overlay">
+          <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+              <h2 id="adminTitle" class="text-xl text-white">
+                ADMIN - ADD DIRECTIVE
+              </h2>
+              <button
+                id="closeAdminModal"
+                class="text-gray-400 hover:text-white text-2xl leading-none cursor-pointer"
+              >
+                ×
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 mb-6">
+              <input
+                id="directiveText"
+                type="text"
+                class="web3-input p-3 rounded-lg text-white"
+                placeholder="DIRECTIVE TEXT"
+              />
+              <select
+                id="directiveTier"
+                class="web3-input p-3 rounded-lg text-white"
+              >
+                <option value="TIER 1">TIER 1</option>
+                <option value="TIER 2">TIER 2</option>
+                <option value="TIER 3">TIER 3</option>
+              </select>
+              <select
+                id="directiveCategory"
+                class="web3-input p-3 rounded-lg text-white"
+              >
+                <option value="DIAGNOSTICS">DIAGNOSTICS</option>
+                <option value="SUPPLEMENT_PROTOCOL">SUPPLEMENT PROTOCOL</option>
+                <option value="DIETARY">DIETARY</option>
+                <option value="MINDBODY">MINDBODY PROTOCOLS</option>
+                <option value="BODYWORK">BODYWORK</option>
+                <option value="MINDFULNESS">MINDFULNESS</option>
+                <option value="MOVEMENT">MOVEMENT</option>
+                <option value="JOURNALING">JOURNALING</option>
+                <option value="ABSTENTIONS">ABSTENTIONS</option>
+              </select>
+              <div class="flex gap-3">
+                <input
+                  id="startDate"
+                  type="date"
+                  class="flex-1 web3-input p-3 rounded-lg text-white"
+                />
+                <input
+                  id="endDate"
+                  type="date"
+                  class="flex-1 web3-input p-3 rounded-lg text-white"
+                  placeholder="END DATE (OPTIONAL)"
+                />
+              </div>
+              <div class="flex items-center gap-4">
+                <label class="flex items-center text-white">
+                  <input id="recurringToggle" type="checkbox" class="mr-2" />
+                  RECURRING
+                </label>
+                <select
+                  id="recurrencePattern"
+                  class="web3-input p-3 rounded-lg text-white"
+                  disabled
+                >
+                  <option value="daily">DAILY</option>
+                  <option value="weekly">WEEKLY</option>
+                  <option value="weekdays">WEEKDAYS</option>
+                  <option value="weekends">WEEKENDS</option>
+                </select>
+              </div>
+
+              <div class="flex gap-3">
+                <button
+                  id="addDirective"
+                  class="web3-button px-6 py-3 rounded-lg text-white font-medium"
+                >
+                  ADD DIRECTIVE
+                </button>
+                <button
+                  id="deleteDirective"
+                  class="hidden web3-button px-6 py-3 rounded-lg text-white font-medium"
+                >
+                  DELETE DIRECTIVE
+                </button>
+                <button
+                  id="cancelEdit"
+                  class="hidden px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg text-white font-medium cursor-pointer"
+                >
+                  CANCEL EDIT
+                </button>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-600 pt-4">
+              <div class="flex items-center gap-4">
+                <label class="text-white">DEMO MODE</label>
+                <input type="checkbox" class="seg_2slider" id="demoSwitch" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNAL MODAL -->
+    <div id="journalModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl text-white">NEW JOURNAL ENTRY</h2>
+          <button
+            id="closeJournalModal"
+            class="text-gray-400 hover:text-white text-2xl leading-none cursor-pointer"
+          >
+            ×
+          </button>
         </div>
 
-        <!-- SCORE DISPLAY -->
-        <div class="mb-8">
-            <h2 class="text-xl mb-4">CURRENT SCORE</h2>
-            <div id="scoreDisplay" class="text-2xl font-bold text-green-400">0</div>
+        <div class="space-y-4 mb-6">
+          <input
+            id="journalInputTitle"
+            type="text"
+            class="w-full web3-input p-3 rounded-lg text-white"
+            placeholder="ENTER YOUR LOG TITLE"
+          />
+          <textarea
+            rows="10"
+            id="journalInput"
+            class="w-full web3-input p-3 rounded-lg text-white resize-vertical"
+            placeholder="ENTER YOUR LOG ENTRY"
+          ></textarea>
         </div>
 
+        <div class="flex gap-3 justify-end">
+          <button
+            id="cancelJournalEntry"
+            class="px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg text-white font-medium cursor-pointer"
+          >
+            CANCEL
+          </button>
+          <button
+            id="submitEntry"
+            class="web3-button px-6 py-3 rounded-lg text-white font-medium"
+          >
+            SUBMIT ENTRY
+          </button>
+        </div>
+      </div>
+    </div>
 
-        <!-- ADMIN TOGGLE -->
-        <div class="float-right mb-8">
-            <button id="showAdmin" class="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-xs">ADMIN</button>
+    <div
+      class="journalContainer md:float-right md:w-1/3 mx-auto px-4 max-w-4xl"
+    >
+
+      <div class="controls hidden" id="controls">
+        <div class="slider_control">
+          <p>Percent Today</p>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="75"
+            class="slider"
+            id="today_percent"
+          />
         </div>
 
-        <!-- ADMIN INTERFACE (HIDDEN BY DEFAULT) -->
-        <div id="adminPanel" class="mb-8 p-4 bg-red-900 rounded hidden">
-    
-    <h2 id="adminTitle" class="text-xl mb-4">ADMIN - ADD DIRECTIVE</h2>
-    <div class="grid grid-cols-1 gap-2 mb-4">
-        <input 
-            id="directiveText" 
-            type="text" 
-            class="p-2 bg-gray-800 border border-gray-700 rounded text-white"
-            placeholder="DIRECTIVE TEXT"
+        <div class="slider_control">
+          <p>Percent 3 Day</p>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="75"
+            class="slider"
+            id="3day_percent"
+          />
+        </div>
+
+        <div class="slider_control">
+          <p>Score</p>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="75"
+            class="slider"
+            id="score"
+          />
+        </div>
+
+        <div class="slider_control">
+          <p>Tier Variety</p>
+          <input
+            type="range"
+            min="1"
+            max="3"
+            value="1"
+            class="slider"
+            id="tier_variety"
+          />
+        </div>
+      </div>
+
+
+      <!-- DIRECTIVES -->
+      <div class="mb-4 pt-8">
+        <button
+          id="toggleDirectives"
+          class="flex items-center justify-between w-full text-left text-xl mb-4 py-2 px-3 rounded-lg bg-transparent border border-gray-600 hover:border-gray-500 transition-colors cursor-pointer"
         >
-        <select id="directiveTier" class="p-2 bg-gray-800 border border-gray-700 rounded text-white">
-            <option value="TIER 1">TIER 1</option>
-            <option value="TIER 2">TIER 2</option>
-            <option value="TIER 3">TIER 3</option>
-        </select>
-        <select id="directiveCategory" class="p-2 bg-gray-800 border border-gray-700 rounded text-white">
-            <option value="DIAGNOSTICS">DIAGNOSTICS</option>
-            <option value="SUPPLEMENT_PROTOCOL">SUPPLEMENT PROTOCOL</option>
-            <option value="DIETARY">DIETARY</option>
-            <option value="MINDBODY">MINDBODY PROTOCOLS</option>
-            <option value="BODYWORK">BODYWORK</option>
-            <option value="MINDFULNESS">MINDFULNESS</option>
-            <option value="MOVEMENT">MOVEMENT</option>
-            <option value="JOURNALING">JOURNALING</option>
-            <option value="ABSTENTIONS">ABSTENTIONS</option>
-        </select>
-        <div class="flex gap-2">
-            <input 
-                id="startDate" 
-                type="date" 
-                class="flex-1 p-2 bg-gray-800 border border-gray-700 rounded text-white"
-            >
-            <input 
-                id="endDate" 
-                type="date" 
-                class="flex-1 p-2 bg-gray-800 border border-gray-700 rounded text-white"
-                placeholder="END DATE (OPTIONAL)"
-            >
+          <span>DIRECTIVES</span>
+          <span
+            id="directivesToggleIcon"
+            class="transform transition-transform duration-200"
+            >▼</span
+          >
+        </button>
+        <div
+          id="directivesCollapsible"
+          class="space-y-2 overflow-hidden transition-all duration-300 max-h-0"
+        >
+          <div id="directivesList" class="space-y-2"></div>
         </div>
-        <div class="flex items-center gap-4">
-            <label class="flex items-center text-white">
-                <input id="recurringToggle" type="checkbox" class="mr-2">
-                RECURRING
-            </label>
-            <select id="recurrencePattern" class="p-2 bg-gray-800 border border-gray-700 rounded text-white" disabled>
-                <option value="daily">DAILY</option>
-                <option value="weekly">WEEKLY</option>
-                <option value="weekdays">WEEKDAYS</option>
-                <option value="weekends">WEEKENDS</option>
-            </select>
-        </div>
-        <button id="addDirective" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded">ADD DIRECTIVE</button>
-        <button id="deleteDirective" class="hidden px-4 py-2 bg-red-600 hover:bg-red-700 rounded">DELETE DIRECTIVE</button>
-        <button id="cancelEdit" class="hidden px-4 py-2 bg-red-600 hover:bg-red-700 rounded">CANCEL EDIT</button>
-    </div>
-    <button id="toggleAdmin" class="text-sm text-red-400 hover:text-red-300">HIDE ADMIN</button>
-   
-    <div class="slider_control">
-            <p>DEMO MODE</p>
-            <input type="checkbox" min="0" max="1" class="seg_2slider" id="demoSwitch">
-        </div>
-</div>
+      </div>
 
-
+      <!-- JOURNAL ENTRIES LIST -->
+      <div class="mb-8">
+        <button
+          id="toggleEntries"
+          class="flex items-center justify-between w-full text-left text-xl mb-4 py-2 px-3 rounded-lg bg-transparent border border-gray-600 hover:border-gray-500 transition-colors cursor-pointer"
+        >
+          <span>RECENT ENTRIES</span>
+          <span
+            id="entriesToggleIcon"
+            class="transform transition-transform duration-200"
+            >▼</span
+          >
+        </button>
+        <div
+          id="entriesCollapsible"
+          class="space-y-2 overflow-hidden transition-all duration-300 max-h-0"
+        >
+          <div id="entriesList" class="space-y-2"></div>
+        </div>
+      </div>
     </div>
 
-    </div>
-
-    <div class="journalContainer md:float-right md:w-1/3 mx-auto px-4 max-w-4xl">
-
-        <div class="controls hidden" id="controls">
-
-            <div class="slider_control">
-            <p>Percent Today</p>
-            <input type="range" min="0" max="100" value="75" class="slider" id="today_percent">
-            </div>
-
-            <div class="slider_control">
-            <p>Percent 3 Day</p>
-            <input type="range" min="0" max="100" value="75" class="slider" id="3day_percent">
-            </div>
-
-            <div class="slider_control">
-            <p>Score</p>
-            <input type="range" min="0" max="100" value="75" class="slider" id="score">
-            </div>
-
-            <div class="slider_control">
-            <p>Tier Variety</p>
-            <input type="range" min="1" max="3" value="1" class="slider" id="tier_variety">
-            </div>
-
-        </div>
-
-        <!-- JOURNAL ENTRY -->
-        <div class="mb-8">
-            <h2 class="text-xl mb-4 pt-8">JOURNAL ENTRY</h2>
-            <textarea rows="1"
-                id="journalInputTitle" 
-                class="w-full h-full p-4 bg-gray-800 border border-gray-700 rounded text-white"
-                placeholder="ENTER YOUR LOG TITLE"
-            ></textarea>
-            <textarea rows="10"
-                id="journalInput" 
-                class="w-full r-20 p-4 bg-gray-800 border border-gray-700 rounded text-white"
-                placeholder="ENTER YOUR LOG ENTRY"
-            ></textarea>
-            <button 
-                id="submitEntry" 
-                class="mt-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded"
-            >
-                SUBMIT
-            </button>
-        </div>
-
-        <!-- JOURNAL ENTRIES LIST -->
-        <div class="mb-8">
-            <h2 class="text-xl mb-4">RECENT ENTRIES</h2>
-            <div id="entriesList" class="space-y-2"></div>
-        </div>
-
-    </div>
-
+    <!-- FOOTER WITH BUTTONS -->
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-900/95 backdrop-blur-sm border-t border-gray-700 px-4 py-3 z-50">
+      <div class="flex justify-between items-center max-w-screen-2xl mx-auto">
+        <button
+          id="showJournalModal"
+          class="web3-button px-4 py-2 rounded-lg text-white font-medium"
+        >
+          NEW JOURNAL ENTRY
+        </button>
+        <button
+          id="showAdmin"
+          class="web3-button px-4 py-2 rounded-lg text-white font-medium"
+        >
+          ADMIN
+        </button>
+      </div>
+    </footer>
 
     <script src="js/journal.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/scoring.js"></script>
     <script src="js/app.js"></script>
-    <script type="text/javascript" src="lib/p5.min.js"></script>
+    <script type="text/javascript" src="halo/p5.min.js"></script>
     <script type="text/javascript" src="js/halo.js"></script>
-
-</body>
+  </body>
 </html>

@@ -43,6 +43,15 @@ class JournalManager {
         this.journalInputTitle.value = '';
         this.loadEntries();
         
+        // Close the journal modal
+        const journalModal = document.getElementById('journalModal');
+        if (journalModal) {
+            journalModal.classList.remove('active');
+        }
+        
+        // Update collapsible height after loading entries
+        this.recalculateEntriesHeight();
+        
         // TRIGGER SCORE UPDATE
         document.dispatchEvent(new CustomEvent('dataChange'));
     }
@@ -85,6 +94,36 @@ class JournalManager {
             textElement.style.display = 'none';
             button.textContent = 'SHOW TEXT';
         }
+        
+        // Force immediate height recalculation
+        this.recalculateEntriesHeight();
+    }
+    
+    static recalculateEntriesHeight() {
+        const collapsible = document.getElementById('entriesCollapsible');
+        if (!collapsible) return;
+        
+        // Only recalculate if pane is currently expanded
+        if (collapsible.style.maxHeight === '0px' || collapsible.style.maxHeight === '') {
+            return;
+        }
+        
+        // Temporarily disable transition to avoid interference
+        const originalTransition = collapsible.style.transition;
+        collapsible.style.transition = 'none';
+        
+        // Remove height constraint and measure
+        collapsible.style.maxHeight = 'none';
+        const newHeight = collapsible.scrollHeight;
+        
+        // Set new height
+        collapsible.style.maxHeight = newHeight + 'px';
+        
+        // Force reflow to apply changes immediately
+        collapsible.offsetHeight;
+        
+        // Re-enable transition
+        collapsible.style.transition = originalTransition;
     }
 
     static loadEntries() {
@@ -93,7 +132,7 @@ class JournalManager {
 
         entries.slice(0, 10).forEach(entry => {
             const entryEl = document.createElement('div');
-            entryEl.className = 'p-4 pb-8 bg-gray-800 rounded border-l-4 border-blue-500';
+            entryEl.className = 'journal-entry-card';
             
             const date = new Date(entry.timestamp).toLocaleDateString();
             const time = new Date(entry.timestamp).toLocaleTimeString('en-US', {
@@ -103,19 +142,25 @@ class JournalManager {
 
             
             entryEl.innerHTML = `
-                <div class="text-sm text-gray-400 mb-1">${date} ${time} • ${entry.wordCount} WORDS</div>
-                <div class="text-white font-bold mb-2">${entry.title}</div>
-                <div id="text-${entry.id}" class="text-white mb-3" style="display: none;">${entry.text}</div>
-                <div class="flex gap-2 justify-end">
+                <div class="journal-entry-header">
+                    <div class="journal-entry-meta">
+                        <span class="journal-date">${date}</span>
+                        <span class="journal-time">${time}</span>
+                        <span class="journal-wordcount">${entry.wordCount} WORDS</span>
+                    </div>
+                    <div class="journal-entry-title">${entry.title}</div>
+                </div>
+                <div id="text-${entry.id}" class="journal-entry-text" style="display: none;">${entry.text}</div>
+                <div class="journal-entry-actions">
                     <button 
                         id="toggle-${entry.id}" 
-                        class="bg-green-800 px-3 py-1 text-white rounded hover:bg-green-700"
+                        class="journal-btn journal-btn-show"
                         onclick="JournalManager.toggleEntryText(${entry.id})"
                     >
                         SHOW TEXT
                     </button>
                     <button 
-                        class="bg-red-800 px-3 py-1 text-white rounded hover:bg-red-700"
+                        class="journal-btn journal-btn-delete"
                         onclick="JournalManager.confirmDelete(${entry.id}, '${entry.title}')"
                     >
                         DELETE

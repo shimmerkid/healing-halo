@@ -192,6 +192,7 @@ p {
     margin-top:25px;
     opacity:1;
     transition: opacity .3s;
+    cursor: pointer;
 }
 .color_wheel:hover {
     opacity: 1;
