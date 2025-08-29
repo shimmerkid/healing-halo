@@ -6,13 +6,333 @@
     <title>HEALING ORACLE</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-
-    <script type="text/javascript" src="halo/p5.min.js"></script>
-    <script type="text/javascript" src="halo/halo2.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        body { background: #0f0f0f; }
-        textarea { resize: vertical; }
+        :root {
+            --web3-primary: #6366f1;
+            --web3-secondary: #8b5cf6;
+            --web3-accent: #06ffa5;
+            --web3-accent-pink: #ff006e;
+            --web3-dark: #0a0a0f;
+            --web3-darker: #050508;
+            --web3-gray: #1a1a2e;
+            --web3-gray-light: #252541;
+            --web3-cyan: #00d9ff;
+            --web3-purple: #7c3aed;
+        }
+        
+        body { 
+            background: linear-gradient(135deg, #0a0f1c 0%, #1a1b2e 50%, #16213e 100%);
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            font-weight: 400;
+            letter-spacing: 0.015em;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                /* Healing mandala pattern */
+                radial-gradient(circle at 50% 50%, rgba(6, 255, 165, 0.25) 0%, rgba(6, 255, 165, 0.08) 25%, transparent 50%),
+                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.06) 20%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0.05) 22%, transparent 45%),
+                radial-gradient(circle at 70% 20%, rgba(6, 255, 165, 0.15) 0%, rgba(6, 255, 165, 0.04) 18%, transparent 35%),
+                radial-gradient(circle at 30% 80%, rgba(255, 0, 110, 0.12) 0%, rgba(255, 0, 110, 0.03) 15%, transparent 30%),
+                radial-gradient(circle at 10% 60%, rgba(0, 217, 255, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 90% 40%, rgba(6, 255, 165, 0.1) 0%, transparent 25%),
+                /* Organic wave pattern */
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 30px,
+                    rgba(6, 255, 165, 0.06) 30px,
+                    rgba(6, 255, 165, 0.06) 33px,
+                    transparent 33px,
+                    transparent 60px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 45px,
+                    rgba(99, 102, 241, 0.04) 45px,
+                    rgba(99, 102, 241, 0.04) 48px,
+                    transparent 48px,
+                    transparent 90px
+                );
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                /* Sacred geometry circles - flower of life inspired */
+                radial-gradient(circle at 25% 25%, transparent 25px, rgba(6, 255, 165, 0.08) 26px, rgba(6, 255, 165, 0.08) 30px, transparent 31px),
+                radial-gradient(circle at 75% 25%, transparent 20px, rgba(139, 92, 246, 0.08) 21px, rgba(139, 92, 246, 0.08) 25px, transparent 26px),
+                radial-gradient(circle at 50% 50%, transparent 40px, rgba(99, 102, 241, 0.06) 41px, rgba(99, 102, 241, 0.06) 45px, transparent 46px),
+                radial-gradient(circle at 25% 75%, transparent 18px, rgba(6, 255, 165, 0.07) 19px, rgba(6, 255, 165, 0.07) 22px, transparent 23px),
+                radial-gradient(circle at 75% 75%, transparent 30px, rgba(255, 0, 110, 0.07) 31px, rgba(255, 0, 110, 0.07) 35px, transparent 36px),
+                radial-gradient(circle at 15% 15%, transparent 12px, rgba(0, 217, 255, 0.06) 13px, rgba(0, 217, 255, 0.06) 16px, transparent 17px),
+                radial-gradient(circle at 85% 85%, transparent 22px, rgba(139, 92, 246, 0.06) 23px, rgba(139, 92, 246, 0.06) 27px, transparent 28px),
+                radial-gradient(circle at 40% 15%, transparent 15px, rgba(6, 255, 165, 0.05) 16px, rgba(6, 255, 165, 0.05) 19px, transparent 20px),
+                radial-gradient(circle at 60% 85%, transparent 18px, rgba(0, 217, 255, 0.05) 19px, rgba(0, 217, 255, 0.05) 22px, transparent 23px);
+            pointer-events: none;
+            z-index: -2;
+        }
+        
+        textarea { 
+            resize: vertical; 
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .web3-card {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .web3-button {
+            background: linear-gradient(135deg, var(--web3-primary), var(--web3-secondary));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 
+                0 4px 15px rgba(99, 102, 241, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .web3-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .web3-button:hover::before {
+            left: 100%;
+        }
+        
+        .web3-button:hover {
+            box-shadow: 
+                0 6px 20px rgba(99, 102, 241, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .web3-input {
+            background: rgba(37, 37, 65, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .web3-input:focus {
+            border-color: var(--web3-accent);
+            box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
+            outline: none;
+        }
+        
+        .web3-glow {
+            text-shadow: 0 0 10px currentColor;
+        }
+        
+        .web3-score {
+            background: linear-gradient(135deg, var(--web3-accent), var(--web3-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(6, 255, 165, 0.5);
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            from {
+                filter: brightness(1) drop-shadow(0 0 20px rgba(6, 255, 165, 0.3));
+            }
+            to {
+                filter: brightness(1.2) drop-shadow(0 0 30px rgba(6, 255, 165, 0.6));
+            }
+        }
+        
+        .web3-title {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06ffa5);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .web3-floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .web3-pulse {
+            animation: pulse-border 2s linear infinite;
+        }
+        
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+        
+        .canvas-glow {
+            border-radius: 20px;
+            box-shadow: 
+                0 0 50px rgba(99, 102, 241, 0.3),
+                0 0 100px rgba(139, 92, 246, 0.2),
+                inset 0 0 50px rgba(6, 255, 165, 0.1);
+        }
+        
+        /* Hide p5.js loading text */
+        body > div:last-child {
+            display: none !important;
+        }
+        
+        /* Alternative: hide any element containing "Loading" */
+        [data-p5-instance] {
+            position: relative;
+        }
+        
+        [data-p5-instance]::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: var(--web3-darker);
+            z-index: 1000;
+        }
+        
+        /* Hide any loading text specifically */
+        div[style*="position: absolute"][style*="bottom"] {
+            display: none !important;
+        }
+        
+        /* Admin button positioning */
+        .admin-button-fixed {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            box-shadow: 
+                0 4px 15px rgba(255, 0, 110, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .web3-title {
+                font-size: 2.5rem;
+            }
+            
+            .haloDirectiveContainer,
+            .journalContainer {
+                float: none !important;
+                width: 100% !important;
+            }
+            
+            .canvasSection {
+                margin-left: 0 !important;
+                width: 100% !important;
+                aspect-ratio: 1/1;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -44,7 +364,8 @@
 
         <!-- ADMIN INTERFACE (HIDDEN BY DEFAULT) -->
         <div id="adminPanel" class="mb-8 p-4 bg-red-900 rounded hidden">
-    <h2 class="text-xl mb-4">ADMIN - ADD DIRECTIVE</h2>
+    
+    <h2 id="adminTitle" class="text-xl mb-4">ADMIN - ADD DIRECTIVE</h2>
     <div class="grid grid-cols-1 gap-2 mb-4">
         <input 
             id="directiveText" 
@@ -52,14 +373,21 @@
             class="p-2 bg-gray-800 border border-gray-700 rounded text-white"
             placeholder="DIRECTIVE TEXT"
         >
+        <select id="directiveTier" class="p-2 bg-gray-800 border border-gray-700 rounded text-white">
+            <option value="TIER 1">TIER 1</option>
+            <option value="TIER 2">TIER 2</option>
+            <option value="TIER 3">TIER 3</option>
+        </select>
         <select id="directiveCategory" class="p-2 bg-gray-800 border border-gray-700 rounded text-white">
+            <option value="DIAGNOSTICS">DIAGNOSTICS</option>
+            <option value="SUPPLEMENT_PROTOCOL">SUPPLEMENT PROTOCOL</option>
+            <option value="DIETARY">DIETARY</option>
+            <option value="MINDBODY">MINDBODY PROTOCOLS</option>
+            <option value="BODYWORK">BODYWORK</option>
             <option value="MINDFULNESS">MINDFULNESS</option>
-            <option value="PLANNING">PLANNING</option>
-            <option value="PHYSICAL">PHYSICAL</option>
-            <option value="SOCIAL">SOCIAL</option>
-            <option value="GROWTH">GROWTH</option>
-            <option value="SOMATIC">SOMATIC</option>
-            <option value="GENERAL">GENERAL</option>
+            <option value="MOVEMENT">MOVEMENT</option>
+            <option value="JOURNALING">JOURNALING</option>
+            <option value="ABSTENTIONS">ABSTENTIONS</option>
         </select>
         <div class="flex gap-2">
             <input 
@@ -87,8 +415,15 @@
             </select>
         </div>
         <button id="addDirective" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded">ADD DIRECTIVE</button>
+        <button id="deleteDirective" class="hidden px-4 py-2 bg-red-600 hover:bg-red-700 rounded">DELETE DIRECTIVE</button>
+        <button id="cancelEdit" class="hidden px-4 py-2 bg-red-600 hover:bg-red-700 rounded">CANCEL EDIT</button>
     </div>
     <button id="toggleAdmin" class="text-sm text-red-400 hover:text-red-300">HIDE ADMIN</button>
+   
+    <div class="slider_control">
+            <p>DEMO MODE</p>
+            <input type="checkbox" min="0" max="1" class="seg_2slider" id="demoSwitch">
+        </div>
 </div>
 
 
@@ -97,6 +432,30 @@
     </div>
 
     <div class="journalContainer md:float-right md:w-1/3 mx-auto px-4 max-w-4xl">
+
+        <div class="controls hidden" id="controls">
+
+            <div class="slider_control">
+            <p>Percent Today</p>
+            <input type="range" min="0" max="100" value="75" class="slider" id="today_percent">
+            </div>
+
+            <div class="slider_control">
+            <p>Percent 3 Day</p>
+            <input type="range" min="0" max="100" value="75" class="slider" id="3day_percent">
+            </div>
+
+            <div class="slider_control">
+            <p>Score</p>
+            <input type="range" min="0" max="100" value="75" class="slider" id="score">
+            </div>
+
+            <div class="slider_control">
+            <p>Tier Variety</p>
+            <input type="range" min="1" max="3" value="1" class="slider" id="tier_variety">
+            </div>
+
+        </div>
 
         <!-- JOURNAL ENTRY -->
         <div class="mb-8">
@@ -132,6 +491,8 @@
     <script src="js/directives.js"></script>
     <script src="js/scoring.js"></script>
     <script src="js/app.js"></script>
+    <script type="text/javascript" src="lib/p5.min.js"></script>
+    <script type="text/javascript" src="js/halo.js"></script>
 
 </body>
 </html>
