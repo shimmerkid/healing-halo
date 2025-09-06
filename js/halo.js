@@ -89,6 +89,10 @@ function setup() {
   // logoTexture = loadImage("./resources/ORABlack.jpeg");
   logoGraphic = createGraphics(width, height);
 
+
+    textFont(font);
+    textAlign(CENTER);
+
   //DATA : role
   //Set default colors
   //centerColor.red = 255;
@@ -122,7 +126,7 @@ function windowResized() {
 }
 
 var time = 0.0,
-  radius = 0.25;
+  radius = 0.2;
 
 var mousePressLoc = [];
 var lastYAngle = 0.0,
@@ -175,16 +179,22 @@ function draw() {
         );
     }
   }
-  translate(0, 0, 11);
+  translate(0, 0, 1);
 
   // Canvas text removed - using HTML score container instead
 
   /*Set Parameters*/
 
-  if (demoState) {
+  if (true) {
     noStroke();
     /* white - blue - teal - purple - orange */
-    for (var i = 0; i < 1.0; i += 0.01) {
+    let colorBar = {
+      radius : 0.9*width/2,
+      thickness : 10,
+      span : -0.25,
+      angle : 0.5
+    };
+    for (var i = 0; i < 1.0; i += 0.0025) {
       var color = [];
       var score = 50 * i;
       if (score < 7) {
@@ -214,9 +224,35 @@ function draw() {
         color.blue = 0.0;
       }
 
-      fill(color.red, color.green, color.blue);
-      rect(i * width - width / 2, height / 2 - 10, 10, 10);
+      //fill(color.red, color.green, color.blue);
+      //rect(i * width - width / 2, height / 2 - 10, 10, 10);
+      stroke(color.red, color.green, color.blue);
+      strokeWeight(2);
+      let angle = PI*2*(colorBar.angle - i*colorBar.span);
+      line(colorBar.radius*cos(angle), colorBar.radius*sin(angle), (colorBar.radius + colorBar.thickness)*cos(angle), (colorBar.radius + colorBar.thickness)*sin(angle));
     }
+    let pos = {
+      xa : 1.01*colorBar.radius*cos(colorBar.angle*PI*2 - 0.1),
+      ya : 1.01*colorBar.radius*sin(colorBar.angle*PI*2 - 0.1),
+      aa : PI/2 + PI*2*colorBar.angle,
+      xb : 1.01*colorBar.radius*cos((colorBar.angle - colorBar.span)*PI*2 + 0.15),
+      yb : 1.01*colorBar.radius*sin((colorBar.angle - colorBar.span)*PI*2 + 0.15),
+      ab : PI/2 + PI*2*(colorBar.angle - colorBar.span)
+
+    };
+    textSize(10);
+    fill(255);
+    translate(pos.xa, pos.ya);
+    rotateZ(pos.aa);
+    text("0%", 0, 0);
+    rotateZ(-pos.aa);
+    translate(-pos.xa, -pos.ya);
+
+    translate(pos.xb, pos.yb);
+    rotateZ(pos.ab);
+    text("100%", 0, 0);
+    rotateZ(-pos.ab);
+    translate(-pos.xb, -pos.yb);
   }
 
   /* UNCOMMENT THIS TO CHANGE INPUTS */
@@ -360,8 +396,8 @@ function draw() {
     //circle(width/2, height/2, radius*width);
     image(logoTexture, -w / 2, -w / 2, w, w);
   } else {
-    rotateX(xAngle);
-    rotateY(yAngle);
+    //rotateX(xAngle);
+    //rotateY(yAngle);
   }
 
   //blendMode(SCREEN);

@@ -236,7 +236,7 @@ removeDirective(editID) {
     sendVerticesToHalo(vertices) {
         // SEND VERTEX DATA TO HALO
         try {
-            size = vertices.normScore*0.25 + 0.3;
+            size = vertices.normScore*0.25 + 0.2;
             ringCount = 25 + 125*vertices.normScore;
 
             mainColor = vertices.mainColor;
