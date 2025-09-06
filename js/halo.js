@@ -136,7 +136,7 @@ var lastYAngle = 0.0,
 
 var pilAngle = 0.0;
 
-var size = 1.5,
+var size = 1.0,
   rotation = 0.0,
   rotationSpeed = 0.01,
   wobble = 0.25,
@@ -189,10 +189,10 @@ function draw() {
     noStroke();
     /* white - blue - teal - purple - orange */
     let colorBar = {
-      radius : 0.9*width/2,
-      thickness : 10,
-      span : -0.25,
-      angle : 0.5
+      radius: (0.9 * width) / 2,
+      thickness: 10,
+      span: -0.25,
+      angle: 0.5,
     };
     for (var i = 0; i < 1.0; i += 0.0025) {
       var color = [];
@@ -228,17 +228,27 @@ function draw() {
       //rect(i * width - width / 2, height / 2 - 10, 10, 10);
       stroke(color.red, color.green, color.blue);
       strokeWeight(2);
-      let angle = PI*2*(colorBar.angle - i*colorBar.span);
-      line(colorBar.radius*cos(angle), colorBar.radius*sin(angle), (colorBar.radius + colorBar.thickness)*cos(angle), (colorBar.radius + colorBar.thickness)*sin(angle));
+      let angle = PI * 2 * (colorBar.angle - i * colorBar.span);
+      line(
+        colorBar.radius * cos(angle),
+        colorBar.radius * sin(angle),
+        (colorBar.radius + colorBar.thickness) * cos(angle),
+        (colorBar.radius + colorBar.thickness) * sin(angle)
+      );
     }
     let pos = {
-      xa : 1.01*colorBar.radius*cos(colorBar.angle*PI*2 - 0.1),
-      ya : 1.01*colorBar.radius*sin(colorBar.angle*PI*2 - 0.1),
-      aa : PI/2 + PI*2*colorBar.angle,
-      xb : 1.01*colorBar.radius*cos((colorBar.angle - colorBar.span)*PI*2 + 0.15),
-      yb : 1.01*colorBar.radius*sin((colorBar.angle - colorBar.span)*PI*2 + 0.15),
-      ab : PI/2 + PI*2*(colorBar.angle - colorBar.span)
-
+      xa: 1.01 * colorBar.radius * cos(colorBar.angle * PI * 2 - 0.1),
+      ya: 1.01 * colorBar.radius * sin(colorBar.angle * PI * 2 - 0.1),
+      aa: PI / 2 + PI * 2 * colorBar.angle,
+      xb:
+        1.01 *
+        colorBar.radius *
+        cos((colorBar.angle - colorBar.span) * PI * 2 + 0.15),
+      yb:
+        1.01 *
+        colorBar.radius *
+        sin((colorBar.angle - colorBar.span) * PI * 2 + 0.15),
+      ab: PI / 2 + PI * 2 * (colorBar.angle - colorBar.span),
     };
     textSize(10);
     fill(255);
@@ -482,12 +492,12 @@ function draw() {
 
       var x =
         width *
-        1.125 *
+        0.85 *
         (radius + pow(i, 0.9) * size * (1.0 - radius) * (1.0 - rNoise)) *
         cos(t * PI * 2 + rotation);
       var y =
         width *
-        1.125 *
+        0.85 *
         (radius + pow(i, 0.9) * size * (1.0 - radius) * (1.0 - rNoise)) *
         sin(t * PI * 2 + rotation);
 
